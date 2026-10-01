@@ -90,16 +90,16 @@ const FOCUS_AREAS_DATA: FocusAreaModalData[] = [
       "Four Evaluative Criteria: Textual Fidelity, Theological Coherence, Contextual Adequacy & Practical Clarity",
     ],
     audience: "Christian Counselors, Pastors, Faith-Driven Executives, Organizational Leaders, Mentors",
-    status: "Doctoral Dissertation Completed & Approved (2026)",
+    status: "Doctoral Dissertation Research · HOPE Bible Institute (In Progress)",
   },
   {
     id: "doctoral-synthesis",
     index: "04",
     title: "Applied Research & The BeVISIBLE™ Model",
     subtitle: "Leadership Visibility, Sponsorship Dynamics & Decision Tools",
-    academicAnchor: "Joint Doctoral Synthesis (DBA + D.B.Psy.)",
+    academicAnchor: "Synthesizing Both Doctorates (DBA + D.B.Psy.)",
     description:
-      "The intersection where organizational systems (DBA) meet human psychological dynamics (D.B.Psy.). Highlighting the BeVISIBLE™ Alliance Model for leadership visibility, sponsorship mechanics, and equitable career velocity in tech, accompanied by ready-to-deploy decision frameworks.",
+      "Where insights from two separate doctorates—organizational systems (DBA) and human psychology (D.B.Psy.)—converge. Highlighting the BeVISIBLE™ Alliance Model for leadership visibility, sponsorship mechanics, and equitable career velocity in tech, accompanied by ready-to-deploy decision frameworks.",
     deliverables: [
       "The BeVISIBLE™ Alliance Model: Systematic Visibility in Technology",
       "Empirical Research on Executive Sponsorship vs. Mentorship Mechanics",
@@ -107,7 +107,7 @@ const FOCUS_AREAS_DATA: FocusAreaModalData[] = [
       "Enterprise Transformation Readiness Assessment Tool",
     ],
     audience: "Senior Technology Leaders, Diversity & Talent Strategists, Executive Sponsors, Researchers",
-    status: "Dissertation Research & Interactive Web Calculators In Progress",
+    status: "Doctoral Research & Interactive Web Tools In Development",
   },
 ];
 
@@ -226,13 +226,13 @@ export default function App() {
 
     setIsSubmitted(true);
     setNotificationStatus(
-      `Thank you. ${emailInput} has been registered for the Dr. Jack Dee dual-doctoral launch briefings.`
+      `Thank you. ${emailInput} has been registered for updates on Dr. Jack Dee's two separate doctorates (DBA and D.B.Psy.).`
     );
     showToast("Launch notification request confirmed!");
   };
 
   const openEmailDraft = () => {
-    const subject = encodeURIComponent("DrJackDee.com Dual-Doctorate Briefing & Advisory Inquiry");
+    const subject = encodeURIComponent("DrJackDee.com Two Separate Doctorates Briefing Inquiry");
     const body = encodeURIComponent(
       `Hello Jack Dee,\n\nPlease register my email (${emailInput || "executive@domain.com"}) for updates on DrJackDee.com.\n\nDoctoral & Advisory Areas of Interest:\n${selectedInterests.map((i) => `- ${i}`).join("\n")}\n\nLooking forward to the platform launch.\n`
     );
@@ -424,7 +424,7 @@ export default function App() {
           {/* Desktop Navigation Links */}
           <nav className="site-nav hidden md:flex items-center gap-6" aria-label="Primary">
             <a href="#dual-doctorates" className="hover:text-[#ffe082] transition-colors">
-              Two Doctorates
+              Two Separate Doctorates
             </a>
             <a href="#transition" className="hover:text-[#ffe082] transition-colors">
               Transition
@@ -478,7 +478,7 @@ export default function App() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-slate-300 hover:text-[#ffe082] transition-colors"
               >
-                The Two Doctorates
+                Two Separate Doctorates (DBA &amp; D.B.Psy.)
               </a>
               <a
                 href="#transition"
@@ -499,7 +499,7 @@ export default function App() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-slate-300 hover:text-[#ffe082] transition-colors"
               >
-                The Dual-Lens Synthesis
+                The Synthesis
               </a>
               <a
                 href="#connect"
@@ -539,37 +539,38 @@ export default function App() {
           <div className="container hero-layout">
             <div className="hero-copy">
               <div className="flex flex-wrap items-center gap-2 mb-3">
-                <p className="eyebrow-badge !mb-0">Dual-Doctoral Platform Launching Soon</p>
+                <p className="eyebrow-badge !mb-0">Two Separate Doctorates: DBA &amp; D.B.Psy.</p>
                 <span className="text-xs px-2.5 py-0.5 rounded-full border border-[#f2c94c]/30 bg-[#0f213d] text-[#ffe082]">
-                  DBA + D.B.Psy. Candidate
+                  Two Distinct Programs
                 </span>
               </div>
 
               <h1>Dr. Jack Dee is Coming Soon</h1>
 
               <p className="hero-subhead">
-                Where enterprise technology transformation meets biblical psychology,
-                spiritual intelligence, and practitioner-scholar insight.
+                Where 25 years of enterprise technology leadership meets two separate doctorates:
+                Business Administration (DBA) and Biblical Psychology (D.B.Psy.).
               </p>
 
               <p className="hero-body">
-                DrJackDee.com is being crafted as the intellectual and advisory home for{" "}
-                <strong>Jack Darnell Givens</strong>—currently pursuing two simultaneous doctorates:
+                DrJackDee.com is the upcoming thought leadership and executive advisory platform for{" "}
+                <strong>Jack Darnell Givens</strong>, who is earning <strong>two separate doctorates</strong> across two institutions:
                 a <strong>Doctor of Business Administration (DBA)</strong> at{" "}
                 <span className="text-[#ffe082]">William Howard Taft University</span> and a{" "}
-                <strong>Doctor of Biblical Psychology (D.B.Psy.)</strong> at{" "}
-                <span className="text-[#ffe082]">HOPE Bible Institute</span>.
+                <strong>Doctor in Biblical Psychology (D.B.Psy.)</strong> at{" "}
+                <span className="text-[#ffe082]">HOPE Bible Institute</span>. Each doctorate represents an independent, rigorous course of study—one in organizational systems and AI operating models, the other in biblical behavioral psychology and executive resilience.
               </p>
 
-              {/* Dual-Doctorate Institutional Trust Markers */}
+              {/* Two Separate Doctorates Institutional Trust Markers */}
               <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl">
                 <div className="p-3 rounded-xl bg-[#0a192f]/70 border border-[#233554] flex items-center gap-3">
                   <div className="w-8 h-8 rounded-lg bg-[#f2c94c]/10 border border-[#f2c94c]/30 flex items-center justify-center text-[#ffe082] shrink-0">
                     <Building2 className="w-4 h-4" />
                   </div>
                   <div className="text-xs leading-snug">
-                    <strong className="block text-slate-200">DBA Candidate</strong>
-                    <span className="text-slate-400">William Howard Taft University</span>
+                    <span className="text-[10px] uppercase tracking-wider text-[#ffe082] font-bold block">Separate Doctorate #1</span>
+                    <strong className="block text-slate-200">Doctor of Business Administration (DBA)</strong>
+                    <span className="text-slate-400">William Howard Taft University (In Progress)</span>
                   </div>
                 </div>
 
@@ -578,8 +579,9 @@ export default function App() {
                     <Brain className="w-4 h-4" />
                   </div>
                   <div className="text-xs leading-snug">
-                    <strong className="block text-slate-200">D.B.Psy. Candidate</strong>
-                    <span className="text-slate-400">HOPE Bible Institute</span>
+                    <span className="text-[10px] uppercase tracking-wider text-[#ffe082] font-bold block">Separate Doctorate #2</span>
+                    <strong className="block text-slate-200">Doctor in Biblical Psychology (D.B.Psy.)</strong>
+                    <span className="text-slate-400">HOPE Bible Institute (In Progress)</span>
                   </div>
                 </div>
               </div>
@@ -619,10 +621,10 @@ export default function App() {
             {/* Strategic Brand Evolution Interactive Aside Panel */}
             <aside className="hero-panel" aria-label="Brand transition summary">
               <div className="panel-shell">
-                <p className="panel-label">Dual-Doctoral Strategic Evolution</p>
+                <p className="panel-label">Two Separate Doctoral Degrees</p>
                 <div className="brand-transition">
                   <div className="brand-transition__item">
-                    <span className="transition-tag">Corporate Brand</span>
+                    <span className="transition-tag">Corporate Practice</span>
                     <strong className="text-slate-200">MrJackDee</strong>
                   </div>
                   <div className="transition-axis" aria-hidden="true">
@@ -631,7 +633,7 @@ export default function App() {
                     <span></span>
                   </div>
                   <div className="brand-transition__item is-featured">
-                    <span className="transition-tag">Dual-Doctoral Platform</span>
+                    <span className="transition-tag">Two Doctorates</span>
                     <strong className="text-[#ffe082]">DrJackDee</strong>
                   </div>
                 </div>
@@ -639,31 +641,31 @@ export default function App() {
                 <div className="insight-stack">
                   <article className="insight-card">
                     <div className="flex items-center justify-between">
-                      <span>DBA · William Howard Taft</span>
+                      <span className="font-semibold text-white">Doctorate 1: DBA · Taft University</span>
                       <Building2 className="w-3.5 h-3.5 text-[#ffe082]" />
                     </div>
                     <p>
-                      Enterprise systems, PMO governance, AI operating models, and empirical business strategy.
+                      Enterprise systems, PMO governance, AI operating models, and executive sponsorship.
                     </p>
                   </article>
 
                   <article className="insight-card">
                     <div className="flex items-center justify-between">
-                      <span>D.B.Psy. · HOPE Bible Institute</span>
+                      <span className="font-semibold text-white">Doctorate 2: D.B.Psy. · HOPE Bible</span>
                       <Brain className="w-3.5 h-3.5 text-[#ffe082]" />
                     </div>
                     <p>
-                      Biblical psychology, spiritual intelligence, executive resilience, and moral character.
+                      Biblical psychology, mind renewal, executive resilience, and moral character.
                     </p>
                   </article>
 
                   <article className="insight-card">
                     <div className="flex items-center justify-between">
-                      <span>Practitioner-Scholar Synthesis</span>
+                      <span className="font-semibold text-white">Where Both Doctorates Meet</span>
                       <Sparkles className="w-3.5 h-3.5 text-[#ffe082]" />
                     </div>
                     <p>
-                      The BeVISIBLE™ Alliance Model: Uniting organizational mechanisms with human soul and sponsorship courage.
+                      The BeVISIBLE™ Model: Uniting organizational mechanisms with human soul and sponsorship courage.
                     </p>
                   </article>
                 </div>
@@ -683,22 +685,20 @@ export default function App() {
         </section>
 
         {/* ========================================================================= */}
-        {/* DUAL-DOCTORAL INQUIRIES SECTION                                           */}
+        {/* TWO SEPARATE DOCTORATES SECTION                                           */}
         {/* ========================================================================= */}
         <section className="section section-surface" id="dual-doctorates">
           <div className="container">
             <div className="section-heading">
-              <p className="section-kicker">Two Doctorates · Systems &amp; Soul</p>
-              <h2>Leadership for Both the Organization and the Person.</h2>
+              <p className="section-kicker">Two Separate Doctorates · DBA &amp; D.B.Psy.</p>
+              <h2>Two Separate Doctorates: One in Business, One in Biblical Psychology.</h2>
               <p>
-                Pursuing two doctoral degrees simultaneously brings together the two halves of real leadership:
-                how organizations and technology execute with excellence, and how leaders renew their minds,
-                handle high-stakes pressure, and treat people with genuine dignity.
+                Rather than a single joint degree, Jack Darnell Givens is completing <strong>two entirely separate, independent doctorates</strong> across two distinct institutions. Each degree addresses a vital dimension of leadership: the Taft DBA solves organizational execution and systems, while the HOPE D.B.Psy. addresses the human mind, spirit, and emotional resilience under pressure.
               </p>
             </div>
 
             {/* Filter Buttons */}
-            <div className="flex flex-wrap gap-2 justify-center mt-6 mb-8 p-1.5 rounded-full bg-[#0a192f] border border-[#233554] max-w-md mx-auto">
+            <div className="flex flex-wrap gap-2 justify-center mt-6 mb-8 p-1.5 rounded-full bg-[#0a192f] border border-[#233554] max-w-lg mx-auto">
               <button
                 onClick={() => setActiveDoctorateTab("both")}
                 className={`flex-1 py-1.5 px-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
@@ -707,7 +707,7 @@ export default function App() {
                     : "text-slate-300 hover:text-white"
                 }`}
               >
-                Side-by-Side
+                Compare Both Doctorates
               </button>
               <button
                 onClick={() => setActiveDoctorateTab("dba")}
@@ -717,7 +717,7 @@ export default function App() {
                     : "text-slate-300 hover:text-white"
                 }`}
               >
-                Taft DBA
+                Doctorate 1: Taft DBA
               </button>
               <button
                 onClick={() => setActiveDoctorateTab("dbpsy")}
@@ -727,7 +727,7 @@ export default function App() {
                     : "text-slate-300 hover:text-white"
                 }`}
               >
-                HOPE D.B.Psy.
+                Doctorate 2: HOPE D.B.Psy.
               </button>
             </div>
 
@@ -739,12 +739,12 @@ export default function App() {
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <span className="text-xs uppercase tracking-widest text-[#ffe082] font-bold block mb-1">
-                        Doctor of Business Administration (DBA)
+                        Separate Doctorate 1 of 2 · In Progress
                       </span>
                       <h3 className="text-2xl font-serif font-bold text-white">
-                        William Howard Taft University
+                        Doctor of Business Administration (DBA)
                       </h3>
-                      <p className="text-xs text-slate-400 mt-0.5">The Taft University System · Applied Doctoral Project</p>
+                      <p className="text-xs text-slate-400 mt-0.5">William Howard Taft University (In Progress)</p>
                     </div>
                     <div className="w-12 h-12 rounded-2xl bg-[#0a192f] border border-[#f2c94c]/30 flex items-center justify-center text-[#ffe082] shrink-0">
                       <Building2 className="w-6 h-6" />
@@ -791,7 +791,7 @@ export default function App() {
                       <BookOpen className="w-3.5 h-3.5" />
                       View Taft DBA Research &amp; Program
                     </button>
-                    <span className="text-[#ffe082] font-semibold">Taft University System</span>
+                    <span className="text-[#ffe082] font-semibold">Taft University System (In Progress)</span>
                   </div>
                 </div>
               )}
@@ -802,13 +802,13 @@ export default function App() {
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <span className="text-xs uppercase tracking-widest text-[#ffe082] font-bold block mb-1">
-                        Doctor in Biblical Psychology (D.B.Psy. · 2026)
+                        Separate Doctorate 2 of 2 · In Progress
                       </span>
                       <h3 className="text-2xl font-serif font-bold text-white">
-                        HOPE Bible Institute
+                        Doctor in Biblical Psychology (D.B.Psy.)
                       </h3>
                       <p className="text-xs text-slate-400 mt-0.5">
-                        Dissertation: <em className="text-slate-200">The Heart of Biblical Psychology: Understanding Identity, Renewing the Mind, and Applying Biblical Truth in Counseling</em>
+                        HOPE Bible Institute (In Progress) · Dissertation: <em className="text-slate-200">The Heart of Biblical Psychology: Understanding Identity, Renewing the Mind, and Applying Biblical Truth in Counseling</em>
                       </p>
                       <p className="text-[11px] text-[#ffe082]/80 mt-1">
                         Committee Chair: Dr. Johnny Young, President of HOPE Bible Institute
@@ -840,7 +840,7 @@ export default function App() {
 
                     <div className="p-4 rounded-xl bg-[#0a192f]/70 border border-[#233554] space-y-2">
                       <span className="text-xs font-bold text-[#ffe082] uppercase tracking-wider block">
-                        The 5-Stage Discernment Framework (Givens, 2026)
+                        The 5-Stage Discernment Framework (Givens)
                       </span>
                       <ul className="space-y-1 text-xs text-slate-300">
                         <li>• <strong>1. Listen:</strong> Separate what actually happened from what we fear it means</li>
@@ -870,7 +870,7 @@ export default function App() {
                         Read Attached Doc <ArrowUpRight className="w-3 h-3" />
                       </a>
                     ) : (
-                      <span className="text-[#ffe082] font-semibold">HOPE Bible Institute</span>
+                      <span className="text-[#ffe082] font-semibold">HOPE Bible Institute (In Progress)</span>
                     )}
                   </div>
                 </div>
@@ -880,16 +880,15 @@ export default function App() {
             {/* Why Both? The Core Thesis */}
             <div className="mt-8 p-6 md:p-8 rounded-3xl bg-[#0a192f] border border-[#f2c94c]/30 max-w-4xl mx-auto text-center space-y-3 shadow-2xl">
               <span className="text-xs font-bold text-[#ffe082] uppercase tracking-widest block">
-                The Core Foundation of Dr. Jack Dee
+                Why Earn Two Separate Doctorates?
               </span>
               <p className="text-lg md:text-xl font-serif italic text-slate-100 max-w-3xl mx-auto leading-relaxed">
-                “Organizations struggle for two main reasons: either their systems and execution are flawed,
+                “Organizations struggle for two distinct reasons: either their business systems and execution are flawed,
                 or the people leading them are exhausted, isolated, and overwhelmed.
-                Durable success requires both: the operational clarity of business administration and
-                the emotional wisdom and spiritual grounding of biblical psychology.”
+                That is why I am completing two separate doctorates: one to solve the operational and governance challenges of business (DBA), and one to care for the mind, spirit, and resilience of the leader (D.B.Psy.).”
               </p>
               <p className="text-xs text-slate-400 font-medium">
-                — Jack Darnell Givens, DBA Candidate &amp; Doctor in Biblical Psychology
+                — Jack Darnell Givens, DBA (In Progress, William Howard Taft) &amp; D.B.Psy. (In Progress, HOPE Bible Institute)
               </p>
             </div>
           </div>
@@ -948,10 +947,10 @@ export default function App() {
                   <p>Established executive voice for enterprise transformation, PMO execution, and consulting leadership.</p>
                 </div>
                 <div className="transition-card__step is-active">
-                  <span className="step-label">Dual-Doctoral Platform</span>
+                  <span className="step-label">Two Separate Doctorates</span>
                   <strong>DrJackDee</strong>
                   <p>
-                    Unified public platform bridging William Howard Taft (DBA) business strategy and HOPE Bible Institute (D.B.Psy.) behavioral psychology.
+                    Unified public platform bringing together two separate doctorates: William Howard Taft (DBA) business systems and HOPE Bible Institute (D.B.Psy.) biblical psychology.
                   </p>
                 </div>
                 <div className="transition-card__step">
@@ -1020,11 +1019,10 @@ export default function App() {
         <section className="section" id="synthesis">
           <div className="container">
             <div className="section-heading">
-              <p className="section-kicker">The Dual-Lens Synthesis</p>
-              <h2>How DBA Strategy &amp; Biblical Psychology solve real enterprise crises.</h2>
+              <p className="section-kicker">Synthesizing Both Disciplines</p>
+              <h2>How Two Separate Doctorates Solve Real Executive Crises.</h2>
               <p>
-                Select a high-stakes challenge below to observe how the simultaneous application
-                of William Howard Taft business systems and HOPE Bible Institute psychology produces complete solutions.
+                Select a high-stakes challenge below to observe how applying insights from two separate doctorates—William Howard Taft business systems and HOPE Bible Institute psychology—produces complete solutions.
               </p>
             </div>
 
@@ -1261,8 +1259,7 @@ export default function App() {
                 <p className="section-kicker">Launch Notification</p>
                 <h2>Be notified when DrJackDee.com launches.</h2>
                 <p>
-                  Join the early interest list for launch updates, dual-doctoral research
-                  monographs, executive framework releases, and advisory tools.
+                  Join the early interest list for launch updates and research releases across both separate doctorates (DBA and D.B.Psy.).
                 </p>
 
                 {/* Track Selection Tags */}
@@ -1385,7 +1382,7 @@ export default function App() {
           <div>
             <p className="footer-copy">© 2026 Jack Darnell Givens. All rights reserved.</p>
             <p className="footer-note">
-              Dual-Doctoral Candidate: DBA (William Howard Taft University) &amp; D.B.Psy. (HOPE Bible Institute).
+              Earning two separate doctorates: Doctor of Business Administration (DBA, William Howard Taft University) &amp; Doctor in Biblical Psychology (D.B.Psy., HOPE Bible Institute).
             </p>
           </div>
           <div className="footer-links" aria-label="Footer">
@@ -1528,7 +1525,7 @@ export default function App() {
                 <strong>Jack Darnell Givens</strong> (M.Ed., MBA, MTRS, D.B.Psy., DBA Candidate) brings over 25 years of hands-on leadership in enterprise technology, business operations, and organizational change. As the founder of{" "}
                 <a href="https://www.donoraglobal.com/" target="_blank" rel="noreferrer" className="text-[#ffe082] underline font-medium">
                   DonOra Global
-                </a>, he combines real-world corporate execution with deep doctoral research in business administration and biblical psychology.
+                </a>, he combines real-world corporate execution with <strong>two separate doctorates</strong>: an accredited Doctor of Business Administration (DBA) at William Howard Taft University and a Doctor in Biblical Psychology (D.B.Psy.) at HOPE Bible Institute.
               </p>
 
               {/* Complete Academic Vita Grid */}
@@ -1538,36 +1535,38 @@ export default function App() {
                 </span>
                 <div className="grid sm:grid-cols-2 gap-3 text-xs">
                   <div className="p-3 rounded-xl bg-[#0f213d] border border-[#233554]">
-                    <strong className="text-white block font-medium">Doctor in Biblical Psychology (D.B.Psy.)</strong>
-                    <span className="text-[#ffe082]">HOPE Bible Institute (2026)</span>
-                    <p className="text-slate-400 mt-1">Dissertation: The Heart of Biblical Psychology (Dr. Johnny Young, Chair)</p>
-                  </div>
-
-                  <div className="p-3 rounded-xl bg-[#0f213d] border border-[#233554]">
-                    <strong className="text-white block font-medium">Doctor of Business Administration (DBA Candidate)</strong>
-                    <span className="text-[#ffe082]">William Howard Taft University</span>
+                    <span className="text-[10px] uppercase font-bold text-[#ffe082] block">Separate Doctorate #1 · In Progress</span>
+                    <strong className="text-white block font-medium">Doctor of Business Administration (DBA)</strong>
+                    <span className="text-slate-300">William Howard Taft University (In Progress)</span>
                     <p className="text-slate-400 mt-1">Research: The BeVISIBLE™ Alliance Model &amp; Tech Advancement</p>
                   </div>
 
                   <div className="p-3 rounded-xl bg-[#0f213d] border border-[#233554]">
+                    <span className="text-[10px] uppercase font-bold text-[#ffe082] block">Separate Doctorate #2 · In Progress</span>
+                    <strong className="text-white block font-medium">Doctor in Biblical Psychology (D.B.Psy.)</strong>
+                    <span className="text-[#ffe082]">HOPE Bible Institute (In Progress)</span>
+                    <p className="text-slate-400 mt-1">Dissertation: The Heart of Biblical Psychology (Dr. Johnny Young, Chair)</p>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-[#0f213d] border border-[#233554]">
                     <strong className="text-white block font-medium">Master of Theology &amp; Religious Studies (MTRS)</strong>
-                    <span className="text-slate-300">HOPE Bible Institute (2025)</span>
-                    <p className="text-slate-400 mt-0.5">Preceded by Bachelor of Theology (B.Th., 2024)</p>
+                    <span className="text-slate-300">HOPE Bible Institute</span>
+                    <p className="text-slate-400 mt-0.5">Preceded by Bachelor of Theology (B.Th.)</p>
                   </div>
 
                   <div className="p-3 rounded-xl bg-[#0f213d] border border-[#233554]">
                     <strong className="text-white block font-medium">Master of Business Administration (MBA)</strong>
-                    <span className="text-slate-300">Louisiana State University Shreveport (2023)</span>
+                    <span className="text-slate-300">Louisiana State University Shreveport</span>
                   </div>
 
                   <div className="p-3 rounded-xl bg-[#0f213d] border border-[#233554]">
                     <strong className="text-white block font-medium">Master of Education (M.Ed.) in Educational Technology</strong>
-                    <span className="text-slate-300">Northwestern State University (2002)</span>
+                    <span className="text-slate-300">Northwestern State University</span>
                   </div>
 
                   <div className="p-3 rounded-xl bg-[#0f213d] border border-[#233554]">
                     <strong className="text-white block font-medium">Bachelor of Science in CIS &amp; Business Administration</strong>
-                    <span className="text-slate-300">Northwestern State University (2001)</span>
+                    <span className="text-slate-300">Northwestern State University</span>
                   </div>
                 </div>
               </div>
@@ -1841,7 +1840,7 @@ export default function App() {
               <div className="p-5 rounded-2xl bg-[#0a192f] border border-[#f2c94c]/30 space-y-4">
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#233554] pb-2">
                   <span className="text-xs uppercase tracking-wider text-[#ffe082] font-bold">
-                    Doctoral Research Summary (Givens, 2026)
+                    Doctoral Research Summary (Givens)
                   </span>
                   <span className="text-[11px] text-slate-400">
                     Committee: Dr. Johnny Young, Chair · Dr. Kelsei Favors
@@ -1853,7 +1852,7 @@ export default function App() {
                     The Heart of Biblical Psychology: Understanding Identity, Renewing the Mind, and Applying Biblical Truth in Counseling
                   </h4>
                   <p className="text-xs text-slate-400">
-                    Doctor in Biblical Psychology (D.B.Psy.) · HOPE Bible Institute
+                    Doctor in Biblical Psychology (D.B.Psy.) · HOPE Bible Institute (In Progress)
                   </p>
                 </div>
 
@@ -1995,7 +1994,7 @@ export default function App() {
 
               <div className="pt-4 border-t border-[#233554] flex items-center justify-between">
                 <span className="text-xs text-slate-400">
-                  HOPE Bible Institute · Doctor in Biblical Psychology (2026)
+                  HOPE Bible Institute · Doctor in Biblical Psychology (In Progress)
                 </span>
                 <button
                   onClick={() => setIsHopeModalOpen(false)}
@@ -2036,7 +2035,7 @@ export default function App() {
                   Doctor of Business Administration (DBA)
                 </span>
                 <h2 className="text-xl md:text-2xl font-serif font-bold text-white">
-                  William Howard Taft University
+                  William Howard Taft University (In Progress)
                 </h2>
               </div>
             </div>
@@ -2112,7 +2111,7 @@ export default function App() {
 
               <div className="pt-4 border-t border-[#233554] flex items-center justify-between">
                 <span className="text-xs text-slate-400">
-                  Institution: William Howard Taft University · The Taft University System
+                  Institution: William Howard Taft University · The Taft University System (In Progress)
                 </span>
                 <button
                   onClick={() => setIsTaftModalOpen(false)}
