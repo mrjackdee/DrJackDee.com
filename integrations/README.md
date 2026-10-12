@@ -8,7 +8,7 @@ The form sends contact details directly to a Google Apps Script web app using an
 
 1. Sign into Google as **jackdee.sync@gmail.com** and open https://script.google.com/home/start.
 2. Create a project named **TeamPink Orders**. Replace its default code with **TeamPink-Setup.gs** (the same code is in this repository's `integrations/TeamPink.gs`).
-3. Select **setup** from the function dropdown and click **Run**. Approve Google's requested spreadsheet, email-sending, and trigger permissions. This creates the notification retry trigger; it does not send a test email.
+3. Select **setup** from the function dropdown and click **Run**. Approve Google's requested spreadsheet, email-sending, and trigger permissions. This installs the spreadsheet edit trigger and notification retry trigger; it does not send a test email.
 4. Click **Deploy → New deployment → Web app**. Choose **Execute as: Me** and **Who has access: Anyone**, then deploy.
 5. Send the **Web app URL** ending in `/exec` to Codex. Codex will set it in `public/teampink/config.js`, commit to GitHub, and verify Hostinger's deployment and a test order.
 
@@ -18,4 +18,10 @@ The page displays a setup notice and disables Submit until the Web app URL is co
 
 ## Updating an existing Google deployment
 
-Replace the Apps Script code with the latest `integrations/TeamPink.gs`, run **setup** to add the **Submitter Confirmation** header in column I, and choose **Deploy → Manage deployments → Edit → New version → Deploy**. The existing Web app URL stays the same. New orders track organizer and submitter emails separately, so retrying one does not resend the other. Existing orders are not automatically sent a new customer confirmation. The HTML confirmation uses salmon pink and ivy green, includes the October 19 date, mailing preference, and order reference, and lets the recipient reply to jackdee@att.net. Each new order uses two email recipients against Google's daily quota.
+Replace the Apps Script code with the latest `integrations/TeamPink.gs`, run **setup** to configure columns I–L and install the spreadsheet status edit trigger, and choose **Deploy → Manage deployments → Edit → New version → Deploy**. The existing Web app URL stays the same. New orders track organizer and submitter emails separately, so retrying one does not resend the other. Existing orders are not automatically sent a new customer confirmation. The HTML confirmation uses salmon pink and ivy green, includes the October 19 date, mailing preference, and order reference, and lets the recipient reply to jackdee@att.net. Each new order uses two email recipients against Google's daily quota.
+
+## Send order-placed status emails
+
+After Google setup and deployment, select **Order** in **Order Status (column J)** for each request whose order you have placed. This sends that submitter an ivy green and salmon pink HTML email saying their TeamPink tumbler order has been placed. New requests start as **Received**, which does not send a status email. You may select Order for several rows with a paste; each valid order receives its own email.
+
+**Order Status Email (column K)** shows Pending, Sent, or Check email. **Status Email Sent At (column L)** records successful delivery submission. Leave these automatic tracking columns alone; clearing Sent can resend a message. Successful order status emails are not repeated when you reselect Order. Failed sends or exhausted Google quotas stay Pending and are retried every ten minutes. Existing requests with no status remain unchanged until you select Order.
