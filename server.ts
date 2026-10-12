@@ -3,6 +3,7 @@ import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import teamPinkOrder from './api/teampink-order.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,6 +12,13 @@ async function startServer() {
   const app = express();
   const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
   const isDev = process.env.NODE_ENV !== 'production';
+
+  // TeamPink orders use a small, validated payload and a private Google service.
+  app.use('/api/teampink-order', express.json({ limit: '4kb' }));
+  app.all('/api/teampink-order', teamPinkOrder);
+  app.get(['/teampink', '/teampink/'], (_req, res) => {
+    res.sendFile(path.resolve(__dirname, isDev ? 'public' : 'dist', 'teampink', 'index.html'));
+  });
 
   // Increase payload limit for PDF/DOCX file uploads
   app.use(express.json({ limit: '50mb' }));
@@ -151,3 +159,4 @@ startServer().catch((err) => {
   console.error('Failed to start server:', err);
   process.exit(1);
 });
+
