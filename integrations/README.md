@@ -2,7 +2,7 @@
 
 The page is implemented in the private **mrjackdee/DrJackDee.com** repository and deployed by GitHub → Hostinger. The homepage is unchanged. Hostinger serves the standalone page in `public/teampink/`, copied by Vite to `dist/teampink/`.
 
-The form sends contact details directly to a Google Apps Script web app using an invisible form frame. Google validates and saves the order, sends an email to **jackdee@att.net**, then confirms the sheet write back to the page. No Hostinger server settings or secret credentials are needed.
+The form sends contact details directly to a Google Apps Script web app using an invisible form frame. Google validates and saves the order, sends an organizer notification to **jackdee@att.net** and an HTML confirmation to the submitter's email address, then confirms the sheet write back to the page. No Hostinger server settings or secret credentials are needed.
 
 ## One-time Google authorization
 
@@ -15,3 +15,7 @@ The form sends contact details directly to a Google Apps Script web app using an
 The Orders sheet remains private. The public write endpoint validates contact fields, restricts mailing to yes/no, uses a honeypot and a 10-orders-per-minute limit, prevents duplicate retry references, and writes contact fields as text to prevent spreadsheet formulas. Pending email notifications retry every ten minutes; Google email quotas still apply. Notification delivery can repeat in the rare case a send succeeds but updating its sheet status fails.
 
 The page displays a setup notice and disables Submit until the Web app URL is configured. It only shows a successful order confirmation after Google confirms saving the order.
+
+## Updating an existing Google deployment
+
+Replace the Apps Script code with the latest `integrations/TeamPink.gs`, run **setup** to add the **Submitter Confirmation** header in column I, and choose **Deploy → Manage deployments → Edit → New version → Deploy**. The existing Web app URL stays the same. New orders track organizer and submitter emails separately, so retrying one does not resend the other. Existing orders are not automatically sent a new customer confirmation. The HTML confirmation uses salmon pink and ivy green, includes the October 19 date, mailing preference, and order reference, and lets the recipient reply to jackdee@att.net. Each new order uses two email recipients against Google's daily quota.
