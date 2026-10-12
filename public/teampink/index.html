@@ -6,6 +6,7 @@
   <meta name="description" content="Order your TeamPink tumbler. Fill out the form and submit. Orders will be placed Monday, October 19, 2026.">
   <link rel="canonical" href="https://drjackdee.com/teampink">
   <link rel="stylesheet" href="/teampink/teampink.css">
+  <script src="/teampink/config.js" defer></script>
   <script src="/teampink/teampink.js" defer></script>
 </head>
 <body>
@@ -21,6 +22,7 @@
         <p class="eyebrow">Make it yours</p><h2 id="form-title">Order your tumbler</h2><p class="form-intro">Fill out the form and submit. I will submit the order on <strong>Monday, October 19, 2026.</strong></p>
         <p class="required-note">All contact fields are required.</p>
         <form id="order-form">
+          <p id="setup-notice" class="form-status" role="status" hidden>Ordering is being set up. Please check back shortly.</p>
           <label for="name">Full name</label><input id="name" name="name" autocomplete="name" required maxlength="120" placeholder="Your first and last name">
           <label for="address">Address</label><textarea id="address" name="address" autocomplete="street-address" required maxlength="500" rows="3" placeholder="Street address, apartment or suite, city, state, ZIP code"></textarea>
           <div class="contact-grid"><div><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" placeholder="(555) 555-5555"></div><div><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com"></div></div>
@@ -30,6 +32,7 @@
           <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
           <p class="privacy-note">Your contact information will only be used to coordinate your tumbler order.</p>
         </form>
+        <iframe id="submission-frame" name="teampink-submission" title="Order submission" hidden></iframe>
         <div id="confirmation" hidden tabindex="-1"><span class="success-mark" aria-hidden="true">✓</span><h3>You're on the list!</h3><p>Your TeamPink tumbler order has been received. Jack Dee will submit the order on Monday, October 19, 2026.</p><p id="delivery-confirmation"></p><p class="reference" id="order-reference"></p></div>
       </section>
     </div>

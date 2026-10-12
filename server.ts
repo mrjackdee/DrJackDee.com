@@ -3,7 +3,6 @@ import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import teamPinkOrder from './api/teampink-order.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,9 +12,7 @@ async function startServer() {
   const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
   const isDev = process.env.NODE_ENV !== 'production';
 
-  // TeamPink orders use a small, validated payload and a private Google service.
-  app.use('/api/teampink-order', express.json({ limit: '4kb' }));
-  app.all('/api/teampink-order', teamPinkOrder);
+  // Serve the standalone TeamPink page alongside the existing homepage.
   app.get(['/teampink', '/teampink/'], (_req, res) => {
     res.sendFile(path.resolve(__dirname, isDev ? 'public' : 'dist', 'teampink', 'index.html'));
   });

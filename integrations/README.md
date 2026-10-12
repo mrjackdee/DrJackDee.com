@@ -1,17 +1,17 @@
-# TeamPink orders
+# Activate TeamPink orders
 
-This implementation belongs to the private **mrjackdee/DrJackDee.com** repository, formerly Coming-Soon-DrJackDee.com. The existing React homepage is unchanged.
+The page is implemented in the private **mrjackdee/DrJackDee.com** repository and deployed by GitHub → Hostinger. The homepage is unchanged. Hostinger serves the standalone page in `public/teampink/`, copied by Vite to `dist/teampink/`.
 
-The standalone order page is in `public/teampink/`. Vite copies it into `dist/teampink/` at build time. The Express server serves it at `/teampink` and `/teampink/`, and handles orders at `/api/teampink-order`. A Vercel rewrite and serverless handler support deployments on Vercel too.
+The form sends contact details directly to a Google Apps Script web app using an invisible form frame. Google validates and saves the order, sends an email to **jackdee@att.net**, then confirms the sheet write back to the page. No Hostinger server settings or secret credentials are needed.
 
-## Google setup
+## One-time Google authorization
 
-1. Sign into Google as **jackdee.sync@gmail.com**, then open https://script.google.com/home/start.
-2. Create a project named **TeamPink Orders** and replace the default code with the prepared private **TeamPink-Setup.gs** file. Keep that file out of GitHub: it contains a private server secret.
-3. Select **setup** and click **Run**, then authorize the spreadsheet, email sending, and retry trigger.
-4. Choose **Deploy → New deployment → Web app**, with **Execute as: Me** and **Who has access: Anyone**. Deploy and copy the Web app URL ending in `/exec`.
-5. Configure `TEAMPINK_SCRIPT_URL` and `TEAMPINK_SECRET` as server-side environment variables on the site's actual host, then redeploy. Use the matching secret from the private setup file. Never put either value in a VITE_ variable or frontend source.
+1. Sign into Google as **jackdee.sync@gmail.com** and open https://script.google.com/home/start.
+2. Create a project named **TeamPink Orders**. Replace its default code with **TeamPink-Setup.gs** (the same code is in this repository's `integrations/TeamPink.gs`).
+3. Select **setup** from the function dropdown and click **Run**. Approve Google's requested spreadsheet, email-sending, and trigger permissions. This creates the notification retry trigger; it does not send a test email.
+4. Click **Deploy → New deployment → Web app**. Choose **Execute as: Me** and **Who has access: Anyone**, then deploy.
+5. Send the **Web app URL** ending in `/exec` to Codex. Codex will set it in `public/teampink/config.js`, commit to GitHub, and verify Hostinger's deployment and a test order.
 
-Orders save to the private Orders tab in the TeamPink sheet for jackdee.sync@gmail.com. Notifications go to **jackdee@att.net**. The service prevents duplicate retries, writes contact values as text to prevent spreadsheet formulas, and retries pending email notifications every ten minutes. Google email quotas still apply.
+The Orders sheet remains private. The public write endpoint validates contact fields, restricts mailing to yes/no, uses a honeypot and a 10-orders-per-minute limit, prevents duplicate retry references, and writes contact fields as text to prevent spreadsheet formulas. Pending email notifications retry every ten minutes; Google email quotas still apply. Notification delivery can repeat in the rare case a send succeeds but updating its sheet status fails.
 
-Until the service is configured, the form reports that ordering is being set up. No success confirmation appears without a confirmed sheet write.
+The page displays a setup notice and disables Submit until the Web app URL is configured. It only shows a successful order confirmation after Google confirms saving the order.
