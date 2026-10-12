@@ -32,7 +32,7 @@ function doPost(e) {
     if (typeof data[key] !== 'string' || !data[key].trim() || data[key].length > limits[key]) return reply(data,false,'Please complete all contact fields.');
     data[key] = data[key].trim();
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email) || data.phone.replace(/\D/g,'').length < 7 || !['true','false'].includes(data.mail)) return reply(data,false,'Please check your contact details.');
+  if (!/^[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]+$/.test(data.email) || data.phone.replace(/\D/g,'').length < 7 || !['true','false'].includes(data.mail)) return reply(data,false,'Please check your contact details.');
   const lock = LockService.getScriptLock();
   if (!lock.tryLock(10000)) return reply(data,false,'Please try again in a moment.');
   try {
@@ -131,7 +131,7 @@ function notifyOrderStatus(sheet,row) {
   const v = sheet.getRange(row,1,1,12).getValues()[0];
   if (v[9] !== 'Order' || v[10] === 'Sent' || !UUID.test(v[1] || '')) return;
   const recipient = String(v[5] || '').trim();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient)) {
+  if (!/^[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]+$/.test(recipient)) {
     sheet.getRange(row,11).setValue('Check email');
     return;
   }
