@@ -1,0 +1,6 @@
+<IfModule mod_headers.c>
+  # Page HTML: browsers must check for a newer copy on every visit, so deploys show immediately.
+  <FilesMatch "\.html?$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
