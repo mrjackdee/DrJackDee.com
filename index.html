@@ -103,8 +103,10 @@
         .intro.with-portrait .quote { margin: 0; max-width: none; font-size: 21px; padding-top: 1.9em; }
         .intro.with-portrait .quote .q-open { left: -.04em; transform: none; }
         .intro.with-portrait .quote .q-close { text-align: right; }
+        .intro.with-portrait .divider--quote { margin: 0 0 26px; }
       }
       .divider { width: 64px; height: 1px; background: var(--silver); opacity: .5; margin: 44px auto 32px; }
+      .divider--quote { margin: 6px auto 30px; }
 
       .status { min-height: 1em; }
       .status-kicker { font-weight: 600; font-size: 12.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
@@ -202,9 +204,12 @@
       <div class="wrap">
         <div class="intro %DEFENSE_LAYOUT%">
           <!--DEFENSE_PORTRAIT-->
+          <div class="quote-col">
+            <div class="divider divider--quote" aria-hidden="true"></div>
           <blockquote class="quote">
             <p><span class="q q-open">“</span>My parents taught me that education could expand what I imagined for myself. BeVISIBLE is my contribution, which carries that lesson forward by asking what institutions must change so Black technology leaders can devote more of their energy to shaping the future and less to proving they deserve a place in it.<span class="q q-close">”</span></p>
           </blockquote>
+          </div>
         </div>
 
         <div class="divider" aria-hidden="true"></div>
