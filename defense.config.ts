@@ -4,7 +4,7 @@
  * ============================================================
  *
  *  status
- *    "pending"    Shows "Defense Date and Time: To Be Announced"
+ *    "pending"    Shows "Defense Date and Time: Coming Soon"
  *                 No timer. The start time below is NOT published.
  *    "confirmed"  Shows the date and time in Eastern Time plus a live
  *                 Days / Hours / Minutes countdown. When the start time

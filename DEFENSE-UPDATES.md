@@ -8,7 +8,7 @@ All date and status settings live in `defense.config.ts`. Nothing else needs edi
 |---|---|
 | `Defense confirmed: <date> at <time> ET`<br>e.g. `Defense confirmed: Tue Nov 24 at 3:00 PM ET` | `status: "confirmed"` and `start` set to that moment with the correct Eastern offset (`-05:00` EST, `-04:00` EDT). Page shows the date and the live countdown. |
 | `Defense moved: <date> at <time> ET` | `start` updated; status stays `"confirmed"`. |
-| `Defense date back to TBA` | `status: "pending"`. Page shows "To Be Announced"; no date is published. |
+| `Defense date back to Coming Soon` | `status: "pending"`. Page shows "Coming Soon"; no date is published. |
 | `Defense passed` | `status: "passed"`. Only on Jack's word, never automatic. |
 | `Portrait off` / `Portrait on` | `showPortrait: false` / `true`. |
 

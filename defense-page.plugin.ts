@@ -54,7 +54,7 @@ function timeET(d: Date) {
 function statusBlock(v: ReturnType<typeof validate>): string {
   if (v.status === 'pending') {
     return `<p class="status-kicker">Defense Date and Time</p>
-        <p class="status-line">To Be Announced</p>`;
+        <p class="status-line">Coming Soon</p>`;
   }
   const when = `${dateET(v.start!)} at\u00a0${timeET(v.start!)}`;
   if (v.status === 'passed') {
@@ -86,13 +86,13 @@ export function defensePage(): Plugin {
                    width="480" height="600" loading="lazy" decoding="async"
                    alt="Jack Darnell Givens in academic regalia, smiling, with the Dallas skyline at dusk behind him." />
             </picture>
-            <figcaption><span class="name">Jack Darnell Givens</span><span class="candidacy">Doctor of Business Administration Candidate</span><span class="creds">M.EdTech<span class="sep"> · </span>MBA-PM<span class="sep"> · </span>PMP<span class="sep"> · </span>LSSBB</span></figcaption>
+            <figcaption><span class="name">Jack Darnell Givens</span><span class="candidacy">Doctor of Business Administration Candidate</span><span class="school"><span class="school-name">William Howard Taft</span><span class="school-sub">University</span><span class="school-college">Deming School of Business</span></span></figcaption>
           </figure>`
         : '';
       return html
         .replace('<!--DEFENSE_PORTRAIT-->', portrait)
         // Name sits under the portrait; without a portrait it returns to the hero.
-        .replace('<!--HERO_NAME-->', defense.showPortrait ? '' : '<p class="name">Jack Darnell Givens</p><p class="candidacy">Doctor of Business Administration Candidate</p><p class="creds">M.EdTech<span class="sep"> · </span>MBA-PM<span class="sep"> · </span>PMP<span class="sep"> · </span>LSSBB</p>')
+        .replace('<!--HERO_NAME-->', defense.showPortrait ? '' : '<p class="name">Jack Darnell Givens</p><p class="candidacy">Doctor of Business Administration Candidate</p><p class="school"><span class="school-name">William Howard Taft</span><span class="school-sub">University</span><span class="school-college">Deming School of Business</span></p>')
         .replace('%DEFENSE_LAYOUT%', defense.showPortrait ? 'with-portrait' : 'no-portrait')
         .replace('<!--DEFENSE_STATUS-->', statusBlock(v))
         .replace('%DEFENSE_STATE%', v.status)
