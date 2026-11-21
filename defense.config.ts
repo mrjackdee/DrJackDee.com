@@ -6,7 +6,7 @@
  *  status
  *    "pending"    Shows "Defense Date and Time: Coming Soon"
  *                 No timer. The start time below is NOT published.
- *    "date-set"   Shows the date with "Time To Be Announced". No timer.
+ *    "date-set"   Shows the date only (no time line). No timer.
  *                 start is a date only, e.g. "2026-11-24". After that day
  *                 ends in ET the page shows "Defense update coming soon."
  *    "confirmed"  Shows the date and time in Eastern Time plus a live

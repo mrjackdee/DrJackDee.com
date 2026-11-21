@@ -83,8 +83,7 @@ function statusBlock(v: ReturnType<typeof validate>): string {
   }
   if (v.status === 'date-set') {
     return `<p class="status-kicker" id="status-kicker">Defense Date</p>
-        <p class="status-line"><time datetime="${v.iso}">${dateET(v.start!, true)}</time></p>
-        <p class="status-time">Time To Be Announced</p>`;
+        <p class="status-line"><time datetime="${v.iso}">${dateET(v.start!, true)}</time></p>`;
   }
   const when = `${dateET(v.start!)} at\u00a0${timeET(v.start!)}`;
   // confirmed: date is static HTML; the timer is enhanced by JavaScript

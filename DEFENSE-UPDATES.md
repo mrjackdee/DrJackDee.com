@@ -6,7 +6,7 @@ All date and status settings live in `defense.config.ts`. Nothing else needs edi
 
 | Jack sends | What changes |
 |---|---|
-| `Defense date: <date>, time TBA` | `status: "date-set"`, `start` set to the date only (e.g. `2026-11-24`). Page shows the date and "Time To Be Announced"; no countdown. |
+| `Defense date: <date>, time TBA` | `status: "date-set"`, `start` set to the date only (e.g. `2026-11-24`). Page shows the date only; no time line, no countdown. |
 | `Defense confirmed: <date> at <time> ET`<br>e.g. `Defense confirmed: Tue Nov 24 at 3:00 PM ET` | `status: "confirmed"` and `start` set to that moment with the correct Eastern offset (`-05:00` EST, `-04:00` EDT). Page shows the date and the live countdown. |
 | `Defense moved: <date> at <time> ET` | `start` updated; status stays `"confirmed"`. |
 | `Defense date back to Coming Soon` | `status: "pending"`. Page shows "Coming Soon"; no date is published. |
