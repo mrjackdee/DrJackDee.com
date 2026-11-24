@@ -16,12 +16,6 @@ function video(): Required<DefenseVideo> | null {
   if (!/^(https:\/\/[\w.-]+)?\/[\w./-]+\.mp4$/.test(src)) fail('defenseVideo.src must be an https .mp4 address');
   return { src, poster: v.poster || '/defense-slide-1600.jpg', length: v.length || '' };
 }
-function WATCH(): string {
-  if (!video()) return '';
-  return `<p class="hero-cta"><a class="cta cta--watch" href="#defense-video" data-play-video>`
-    + `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 8.2v7.6l6-3.8z" fill="currentColor"/></svg>`
-    + `Watch My Defense</a></p>`;
-}
 function PLAYER(): string {
   const v = video();
   if (!v) return '';
@@ -255,7 +249,7 @@ export function defensePage(): Plugin {
       return out
         .replace(section, '')
         // Passed: open with the result, then the dissertation title, labeled.
-        .replace('<p class="eyebrow">FINAL DEFENSE ANNOUNCEMENT</p>', WATCH())
+        .replace('<p class="eyebrow">FINAL DEFENSE ANNOUNCEMENT</p>', '')
         .replace('<div class="quote-col">', '<div class="quote-col">' + PLAYER())
         .replace('<h1 class="study">',
           `<section class="status status--hero" id="defense" data-state="passed" aria-label="Defense result"><div class="hero-seal">${STAMP()}<span class="hero-rule" aria-hidden="true"></span><span class="school school--hero"><span class="school-name">William Howard Taft</span><span class="school-sub">University</span><span class="school-college">Deming School of Business</span></span></div>${statusBlock(v)}</section>
