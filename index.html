@@ -244,6 +244,15 @@
       .nav-pill svg { width: 15px; height: 15px; }
       @media (max-width: 480px) { .topnav-in { height: 56px; padding: 0 14px; } .brand-name { display: none; } .nav-link { padding: 0 12px; font-size: 13.5px; letter-spacing: .04em; } }
       @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+      /* Passed layout: result first, then the labeled title */
+      .status--hero { margin: 0 0 30px; }
+      .study-label { display: block; font-family: var(--sans); font-size: 12.5px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+      .study--labeled { margin-top: 0; padding-top: 26px; border-top: 1px solid var(--line); max-width: 30ch; }
+      .concentration { display: block; margin-top: 2px; font-size: 13.5px; font-weight: 500; letter-spacing: .08em; color: var(--muted); }
+      .content--marks { padding-top: 8px; }
+      .content--marks .research-mark { margin-top: 0; }
+      .gb { padding-bottom: 40px; margin-top: -24px; }
     </style>
   </head>
   <body>
@@ -286,6 +295,14 @@
           <p class="status-note" id="status-note" aria-live="polite"></p>
         </section>
 
+      </div>
+    </main>
+
+
+    <!--GUESTBOOK-->
+
+    <section class="content content--marks" aria-label="Links">
+      <div class="wrap">
         <div class="research-mark">
           <div class="marks">
             <a class="mark-link" href="https://mrjackdee.com" aria-label="JD monogram: visit MrJackDee.com">
@@ -323,9 +340,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
-    </main>
-
-    <!--GUESTBOOK-->
+    </section>
     <footer>
       <div class="wrap">© <span id="yr">2026</span> Jack Darnell Givens</div>
     </footer>

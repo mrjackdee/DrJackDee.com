@@ -12,8 +12,15 @@ header('Cache-Control: no-store');
 header('Referrer-Policy: no-referrer');
 header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'");
 
+// Two ways in: the signed link from a notification email, or Jack's private bookmark key
+// (only its SHA-256 is stored here). Either one unlocks the same page.
+const GB_ADMIN_KEY_SHA256 = '858ef1ae1d7cd664f4d9bde8d3df3e0dc74f864737ff84d348cc77db79ae633d';
 $t = (string) ($_GET['t'] ?? $_POST['t'] ?? '');
-try { $ok = gb_check('admin', $t); } catch (Throwable $e) { $ok = false; error_log('[guestbook] ' . $e->getMessage()); }
+$k = (string) ($_GET['k'] ?? '');
+try {
+    $ok = gb_check('admin', $t);
+    if (!$ok && $k !== '' && hash_equals(GB_ADMIN_KEY_SHA256, hash('sha256', $k))) { $ok = true; $t = gb_token('admin'); }
+} catch (Throwable $e) { $ok = false; error_log('[guestbook] ' . $e->getMessage()); }
 if (!$ok) { http_response_code(404); echo 'Not found'; exit; }
 
 $db = gb_db();
