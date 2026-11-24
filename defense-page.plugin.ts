@@ -192,8 +192,8 @@ export function defensePage(): Plugin {
       const portrait = defense.showPortrait
         ? `<figure class="portrait">
             <picture>
-              <source type="image/webp" srcset="/portrait-jdg-480.webp 480w, /portrait-jdg-960.webp 960w" sizes="(max-width: 640px) 200px, 260px" />
-              <img src="/portrait-jdg-480.jpg" srcset="/portrait-jdg-480.jpg 480w, /portrait-jdg-960.jpg 960w" sizes="(max-width: 640px) 200px, 260px"
+              <source type="image/webp" srcset="/portrait-jdg-480.webp?v=3bars 480w, /portrait-jdg-960.webp?v=3bars 960w" sizes="(max-width: 640px) 200px, 260px" />
+              <img src="/portrait-jdg-480.jpg?v=3bars" srcset="/portrait-jdg-480.jpg?v=3bars 480w, /portrait-jdg-960.jpg?v=3bars 960w" sizes="(max-width: 640px) 200px, 260px"
                    width="480" height="600" loading="lazy" decoding="async"
                    alt="Jack Darnell Givens in academic regalia, smiling, with the Dallas skyline at dusk behind him." />
             </picture>
