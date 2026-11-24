@@ -104,8 +104,10 @@
         border: 1px solid var(--line); box-shadow: 0 0 0 4px rgba(201, 209, 220, .06), 0 24px 60px rgba(0, 0, 0, .45);
       }
       @media (min-width: 720px) {
-        .intro.with-portrait { display: grid; grid-template-columns: 260px 1fr; gap: 44px; align-items: center; text-align: left; }
-        .intro.with-portrait .portrait { width: 260px; margin: 0; }
+        .intro.with-portrait { display: grid; grid-template-columns: 257px 1fr; gap: 44px; align-items: start; text-align: left; }
+        .intro.with-portrait .portrait { width: 257px; margin: 0; }
+        .intro.with-portrait { container-type: inline-size; }
+        .intro.with-portrait .portrait img { width: 257px; height: calc((100cqw - 301px) * .625); object-fit: cover; object-position: 50% 20%; }
         .intro.with-portrait .quote { margin: 0; max-width: none; font-size: 21px; padding-top: 1.9em; }
         .intro.with-portrait .quote .q-open { left: -.04em; transform: none; }
         .intro.with-portrait .quote .q-close { text-align: right; }
