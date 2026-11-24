@@ -242,6 +242,18 @@
       .nav-link:hover { color: var(--silver-hi); background: #c9d1dc14; }
       .nav-link:focus-visible, .brand:focus-visible { outline: 2px solid var(--silver-hi); outline-offset: 3px; }
       .nav-pill { border: 1px solid #c9d1dc59; color: var(--silver-hi); }
+      /* Leave a Note: filled silver pill with a soft glow and a periodic shimmer, to invite notes */
+      .nav-note { position: relative; overflow: hidden; isolation: isolate; color: var(--navy); background: linear-gradient(120deg, var(--silver), var(--silver-hi));
+        box-shadow: 0 0 0 0 #eef2f659; animation: note-glow 3.2s ease-out infinite; }
+      .nav-note svg { width: 15px; height: 15px; }
+      .nav-note::after { content: ""; position: absolute; inset: -20% auto -20% -60%; width: 45%; z-index: -1; pointer-events: none;
+        background: linear-gradient(100deg, transparent, #ffffffd9, transparent); transform: skewX(-20deg); animation: note-shine 4.8s ease-in-out infinite; }
+      .nav-note:hover { color: var(--navy); background: linear-gradient(120deg, var(--silver-hi), #FFFFFF); transform: translateY(-1px); }
+      @keyframes note-glow { 0% { box-shadow: 0 0 0 0 #eef2f666; } 70% { box-shadow: 0 0 0 9px #eef2f600; } 100% { box-shadow: 0 0 0 0 #eef2f600; } }
+      @keyframes note-shine { 0%, 62% { left: -60%; } 100% { left: 130%; } }
+      @media (prefers-reduced-motion: reduce) { .nav-note, .nav-note::after { animation: none; } }
+      @media (forced-colors: active) { .nav-note { border: 1px solid ButtonText; } }
+      @media (max-width: 360px) { .nav-note svg { display: none; } }
       .nav-pill:hover { background: linear-gradient(120deg, var(--silver), var(--silver-hi)); color: var(--navy); border-color: transparent; }
       .nav-pill svg { width: 15px; height: 15px; }
       @media (max-width: 480px) { .topnav-in { height: 56px; padding: 0 14px; } .brand-name { display: none; } .nav-link { padding: 0 12px; font-size: 13.5px; letter-spacing: .04em; } }

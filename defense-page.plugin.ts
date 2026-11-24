@@ -166,7 +166,7 @@ const NAV = (guestbook: boolean) => `<nav class="topnav" id="topnav" aria-label=
           <span class="brand-name">DrJackDee.com</span>
         </a>
         <div class="topnav-links">
-          ${guestbook ? '<a class="nav-link" href="#guestbook">Leave a Note</a>' : ''}
+          ${guestbook ? '<a class="nav-link nav-note" href="#guestbook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20h4L19.5 8.5a2.1 2.1 0 0 0-3-3L5 17v3z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M14.5 7.5l2 2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>Leave a Note</a>' : ''}
           <a class="nav-link nav-pill nav-bv" href="https://bevisible.work" aria-label="Research: visit BeVISIBLE.work">
             <span class="nav-bv-seal" aria-hidden="true"><img class="bv-ring" src="/bv-ring-208.webp" alt="" width="30" height="30" decoding="async"/><img src="/bv-center-208.webp" alt="" width="30" height="30" decoding="async"/></span>
             Research
