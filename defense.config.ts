@@ -32,7 +32,7 @@ export const defense = {
   // Date confirmed by Jack 11/21/2026; time to be announced.
   // When the time is set: status "confirmed" and a full timestamp with offset,
   // e.g. "2026-11-24T15:00:00-05:00".
-  start: "2026-11-24",
+  start: "2026-11-23",
 
   // true shows the portrait beside the quote; false removes it from the page.
   showPortrait: true,
