@@ -14,7 +14,7 @@ function video(): Required<DefenseVideo> | null {
   const src = String(process.env.DEFENSE_VIDEO_SRC ?? v.src ?? '').trim();
   if (!src) return null;
   if (!/^(https:\/\/[\w.-]+)?\/[\w./-]+\.mp4$/.test(src)) fail('defenseVideo.src must be an https .mp4 address');
-  return { src, poster: v.poster || '/defense-poster-1600.jpg', length: v.length || '' };
+  return { src, poster: v.poster || '/defense-slide-1600.jpg', length: v.length || '' };
 }
 function WATCH(): string {
   if (!video()) return '';

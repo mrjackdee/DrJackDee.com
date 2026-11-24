@@ -45,7 +45,7 @@ export const defense = {
   // The file is served from Hostinger on video.drjackdee.com (DNS only, not proxied by Cloudflare).
   defenseVideo: {
     src: "https://video.drjackdee.com/BeVISIBLE_Defense_2026-11-23.mp4",
-    poster: "/defense-poster-1600.jpg",
+    poster: "/defense-slide-1600.jpg",
     length: "25:53",
   },
 };
