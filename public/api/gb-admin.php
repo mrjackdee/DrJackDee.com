@@ -108,7 +108,7 @@ function btn(string $t, int $id, string $action, string $label, string $cls): st
 .who{font-weight:600;color:var(--hi);font-size:15px}.msg{margin-top:8px;white-space:pre-wrap;color:#d9dee6}
 .tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}.tag.pending{color:#f0c060}.tag.approved{color:#7fd1a4}.tag.hidden{color:var(--muted)}
 .actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-button{font:inherit;font-size:14px;font-weight:600;border-radius:4px;padding:9px 16px;cursor:pointer;border:1px solid var(--line)}
+button{font:inherit;font-size:14px;font-weight:600;border-radius:999px;padding:9px 16px;cursor:pointer;border:1px solid var(--line)}
 .ok{background:linear-gradient(120deg,var(--silver),var(--hi));color:var(--navy);border:0}.ghost{background:transparent;color:var(--silver)}
 .empty{color:var(--muted);margin-top:24px}
 .badge{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:2px 10px;border:1px solid}.badge-sent{color:#bdf0d2;background:#123d2a;border-color:#2f7a52}.badge-failed{color:#ffd0d0;background:#4a1520;border-color:#a33a4a}

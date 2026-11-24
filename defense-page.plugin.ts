@@ -86,8 +86,8 @@ function statusBlock(v: ReturnType<typeof validate>): string {
         <p class="status-line">Coming Soon</p>`;
   }
   if (v.status === 'passed') {
-    return `<p class="status-kicker">Oral Defense</p>
-        <p class="status-line"><time datetime="${v.iso}">${dateNumeric(v.iso!, v.start!)}</time></p>`;
+    // The PASSED stamp carries the result visually; this line keeps it for screen readers.
+    return `<p class="sr-only">Oral defense passed, <time datetime="${v.iso}">${dateNumeric(v.iso!, v.start!)}</time></p>`;
   }
   if (v.status === 'date-set') {
     return `<p class="status-kicker" id="status-kicker">Defense Date</p>

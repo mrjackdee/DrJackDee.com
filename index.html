@@ -265,6 +265,12 @@
       @keyframes stampIn { from { opacity: 0; transform: rotate(-14deg) scale(1.6); } 60% { opacity: 1; } to { opacity: 1; transform: rotate(-8deg) scale(1); } }
       @media (max-width: 480px) { .stamp { width: 118px; height: 118px; } }
       @media (prefers-reduced-motion: reduce) { .stamp { animation: none; } }
+      /* Rounded pill buttons */
+      .cta { border-radius: 999px; padding-left: 34px; padding-right: 34px; box-shadow: inset 0 1px #ffffff80, 0 8px 22px #0000004d; }
+      .cta:hover { box-shadow: inset 0 1px #ffffff80, 0 12px 30px #00000066; }
+      .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+      .status--hero .stamp { width: 168px; height: 168px; margin-bottom: 26px; }
+      @media (max-width: 480px) { .status--hero .stamp { width: 132px; height: 132px; } }
     </style>
   </head>
   <body>
