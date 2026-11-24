@@ -31,7 +31,8 @@ function PLAYER(): string {
               <span class="player-btn" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M8.5 5.8v12.4L18.5 12z" fill="currentColor"/></svg>Play${v.length ? `<span class="player-len">${v.length}</span>` : ''}</span>
             </button>
           </div>
-          <p class="player-meta">Oral Defense Video<span class="sep"> · </span>25min<span class="sep"> · </span><a href="${v.src}" target="_blank" rel="noopener noreferrer">Open in a new tab<span class="sr-only"> (opens in a new tab)</span></a></p>
+          <p class="player-meta">Oral Defense Overview<span class="sep"> · </span>25min<span class="sep"> · </span><a href="${v.src}" target="_blank" rel="noopener noreferrer">Open in a new tab<span class="sr-only"> (opens in a new tab)</span></a></p>
+          <p class="player-note">A condensed recording that captures the key moments of my oral defense.</p>
         </section>
         `;
 }
