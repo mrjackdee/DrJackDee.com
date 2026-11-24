@@ -86,7 +86,7 @@ function statusBlock(v: ReturnType<typeof validate>): string {
         <p class="status-line">Coming Soon</p>`;
   }
   if (v.status === 'passed') {
-    return `<p class="status-kicker">Oral Defense Passed</p>
+    return `<p class="status-kicker">Oral Defense</p>
         <p class="status-line"><time datetime="${v.iso}">${dateNumeric(v.iso!, v.start!)}</time></p>`;
   }
   if (v.status === 'date-set') {
