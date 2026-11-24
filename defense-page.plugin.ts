@@ -111,7 +111,7 @@ const GUESTBOOK = `<section class="gb" id="guestbook" aria-labelledby="gb-title"
         <form class="gb-form" id="gb-form" novalidate>
           <div class="gb-row">
             <div><label for="gb-name">Name</label><input id="gb-name" name="name" maxlength="60" autocomplete="name" placeholder="Your name" required /></div>
-            <div><label for="gb-rel">How you know Jack <span class="gb-opt">(optional)</span></label><input id="gb-rel" name="relation" maxlength="60" placeholder="Colleague, family, classmate" /></div>
+            <div><label for="gb-rel">How you know Jack Dee <span class="gb-opt">(optional)</span></label><input id="gb-rel" name="relation" maxlength="60" placeholder="Colleague, family, classmate" /></div>
           </div>
           <div><label for="gb-msg">Message</label><textarea id="gb-msg" name="message" maxlength="600" placeholder="Write your note" required></textarea></div>
           <div class="gb-hp" aria-hidden="true"><label for="gb-web">Website</label><input id="gb-web" name="website" tabindex="-1" autocomplete="off" /></div>

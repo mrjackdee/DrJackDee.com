@@ -102,6 +102,7 @@ function btn(string $t, int $id, string $action, string $label, string $cls): st
 button{font:inherit;font-size:14px;font-weight:600;border-radius:4px;padding:9px 16px;cursor:pointer;border:1px solid var(--line)}
 .ok{background:linear-gradient(120deg,var(--silver),var(--hi));color:var(--navy);border:0}.ghost{background:transparent;color:var(--silver)}
 .empty{color:var(--muted);margin-top:24px}
+.alert{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}.alert.ok{color:#7fd1a4}.alert.bad{color:#f2a6a6}
 .edited{margin-top:8px;font-size:12.5px;color:var(--muted);font-style:italic}
 .edit{margin-top:12px}.edit summary{cursor:pointer;color:var(--silver);font-size:14px;font-weight:600}
 .edit form{display:grid;gap:10px;margin-top:10px}.edit label{display:grid;gap:4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
@@ -125,7 +126,7 @@ button{font:inherit;font-size:14px;font-weight:600;border-radius:4px;padding:9px
 <?php foreach ($rows as $r): $id = (int) $r['id']; ?>
 <div class="note <?= gb_h($r['status']) ?>" id="note-<?= $id ?>">
   <div class="meta"><span><span class="who"><?= gb_h($r['name']) ?></span><?= $r['relation'] !== '' ? ' · ' . gb_h($r['relation']) : '' ?></span>
-  <span><span class="tag <?= gb_h($r['status']) ?>"><?= gb_h($r['status'] === 'approved' ? 'on page' : $r['status']) ?></span> · <?= gb_h(et($r['created_at'])) ?></span></div>
+  <span><?php if ($r['ip_hash'] !== 'import'): ?><span class="alert <?= $r['notified'] ? 'ok' : 'bad' ?>"><?= $r['notified'] ? 'alert sent' : 'alert failed' ?></span> · <?php endif; ?><span class="tag <?= gb_h($r['status']) ?>"><?= gb_h($r['status'] === 'approved' ? 'on page' : $r['status']) ?></span> · <?= gb_h(et($r['created_at'])) ?></span></div>
   <p class="msg"><?= gb_h($r['message']) ?></p>
   <?php $ec = $db->prepare('SELECT COUNT(*) FROM edits WHERE note_id = ?'); $ec->execute([$id]); $edited = (int) $ec->fetchColumn(); ?>
   <?php if ($edited): ?><p class="edited">Edited<?= $edited > 1 ? " ($edited changes)" : '' ?>. Original kept on record.</p><?php endif; ?>
