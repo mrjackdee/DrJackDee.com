@@ -7,6 +7,41 @@
 import type { Plugin } from 'vite';
 import { defense } from './defense.config';
 
+// Oral defense video (passed state). Settings come from defense.config.ts.
+type DefenseVideo = { src?: string; poster?: string; length?: string };
+function video(): Required<DefenseVideo> | null {
+  const v = (defense as { defenseVideo?: DefenseVideo }).defenseVideo ?? {};
+  const src = String(process.env.DEFENSE_VIDEO_SRC ?? v.src ?? '').trim();
+  if (!src) return null;
+  if (!/^(https:\/\/[\w.-]+)?\/[\w./-]+\.mp4$/.test(src)) fail('defenseVideo.src must be an https .mp4 address');
+  return { src, poster: v.poster || '/defense-poster-1600.jpg', length: v.length || '' };
+}
+function WATCH(): string {
+  if (!video()) return '';
+  return `<p class="hero-cta"><a class="cta cta--watch" href="#defense-video" data-play-video>`
+    + `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 8.2v7.6l6-3.8z" fill="currentColor"/></svg>`
+    + `Watch My Defense</a></p>`;
+}
+function PLAYER(): string {
+  const v = video();
+  if (!v) return '';
+  const webp = v.poster.replace(/\.jpg$/, '.webp');
+  return `<section class="player-sec" id="defense-video" aria-label="Oral defense video">
+          <div class="player" data-player>
+            <video controls preload="none" playsinline poster="${v.poster}" width="1600" height="1000" aria-label="Oral defense of Jack Dee, November 23, 2026">
+              <source src="${v.src}" type="video/mp4" />
+              <a href="${v.src}">Download the oral defense video</a>
+            </video>
+            <button class="player-play" type="button" data-play-video aria-label="Play the oral defense video${v.length ? `, ${v.length}` : ''}">
+              <picture class="player-poster" aria-hidden="true"><source srcset="${webp}" type="image/webp" /><img src="${v.poster}" alt="" width="1600" height="1000" loading="lazy" decoding="async" /></picture>
+              <span class="player-btn" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M8.5 5.8v12.4L18.5 12z" fill="currentColor"/></svg></span>
+            </button>
+          </div>
+          <p class="player-meta">Oral Defense<span class="sep"> · </span>November 23, 2026${v.length ? `<span class="sep"> · </span>${v.length}` : ''}<span class="sep"> · </span><a href="${v.src}" target="_blank" rel="noopener noreferrer">Open in a new tab<span class="sr-only"> (opens in a new tab)</span></a></p>
+        </section>
+        `;
+}
+
 const STATUSES = ['pending', 'date-set', 'confirmed', 'passed'] as const;
 type Status = (typeof STATUSES)[number];
 const OFFSET_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?([+-]\d{2}:\d{2}|Z)$/;
@@ -220,7 +255,8 @@ export function defensePage(): Plugin {
       return out
         .replace(section, '')
         // Passed: open with the result, then the dissertation title, labeled.
-        .replace('<p class="eyebrow">FINAL DEFENSE ANNOUNCEMENT</p>', '')
+        .replace('<p class="eyebrow">FINAL DEFENSE ANNOUNCEMENT</p>', WATCH())
+        .replace('<div class="intro ', PLAYER() + '<div class="intro ')
         .replace('<h1 class="study">',
           `<section class="status status--hero" id="defense" data-state="passed" aria-label="Defense result"><div class="hero-seal">${STAMP()}<span class="hero-rule" aria-hidden="true"></span><span class="school school--hero"><span class="school-name">William Howard Taft</span><span class="school-sub">University</span><span class="school-college">Deming School of Business</span></span></div>${statusBlock(v)}</section>
         <h1 class="study study--labeled"><span class="study-label">Title</span>`);

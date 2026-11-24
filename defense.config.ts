@@ -39,4 +39,13 @@ export const defense = {
 
   // true shows the "Leave a Note" guestbook. Notes appear only after Jack approves them.
   guestbook: true,
+
+  // Oral defense video (passed state only): "Watch My Defense" button in the hero
+  // plus an in-page player with a poster frame. src "" hides both.
+  // The file is served from Hostinger on video.drjackdee.com (DNS only, not proxied by Cloudflare).
+  defenseVideo: {
+    src: "https://video.drjackdee.com/BeVISIBLE_Defense_2026-11-23.mp4",
+    poster: "/defense-poster-1600.jpg",
+    length: "25:53",
+  },
 };
