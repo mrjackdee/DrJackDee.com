@@ -164,7 +164,7 @@ const NAV = (guestbook: boolean) => `<nav class="topnav" id="topnav" aria-label=
             <circle cx="50" cy="50" r="28" fill="none" stroke="url(#svn)" stroke-width="1.4"/>
             <text x="50" y="57" text-anchor="middle" font-family="Michroma, Oxanium, sans-serif" font-size="19" fill="url(#svn)">JD</text>
           </svg>
-          <span class="brand-name">DrJackDee.com</span>
+          <span class="brand-name">DrJackDee<sup class="tm">™</sup>.com</span>
         </a>
         <div class="topnav-links">
           ${guestbook ? '<a class="nav-link nav-note" href="#guestbook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20h4L19.5 8.5a2.1 2.1 0 0 0-3-3L5 17v3z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M14.5 7.5l2 2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>Leave a Note</a>' : ''}
