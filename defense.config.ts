@@ -27,9 +27,9 @@
  *  A typo here fails the build on purpose, so a bad date never goes live.
  */
 export const defense = {
-  status: "date-set" as "pending" | "date-set" | "confirmed" | "passed",
+  status: "passed" as "pending" | "date-set" | "confirmed" | "passed",
 
-  // Date confirmed by Jack 11/21/2026; time to be announced.
+  // Defense passed 11/23/2026, confirmed by Jack.
   // When the time is set: status "confirmed" and a full timestamp with offset,
   // e.g. "2026-11-24T15:00:00-05:00".
   start: "2026-11-23",
