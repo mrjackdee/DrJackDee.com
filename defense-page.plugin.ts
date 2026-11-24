@@ -54,6 +54,14 @@ function dateET(d: Date, dateOnly = false) {
   return `${p.weekday}, ${p.month} ${p.day}, ${p.year}`;
 }
 
+/** "11/23/2026" from a date-only "2026-11-23" (or the ET calendar day of a full timestamp) */
+function dateNumeric(iso: string, d: Date) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  if (m) return `${m[2]}/${m[3]}/${m[1]}`;
+  const p = partsET(d, { month: '2-digit', day: '2-digit', year: 'numeric' });
+  return `${p.month}/${p.day}/${p.year}`;
+}
+
 /** "3:00 p.m. ET" */
 function timeET(d: Date) {
   const p = partsET(d, { hour: 'numeric', minute: '2-digit', hour12: true });
@@ -79,7 +87,7 @@ function statusBlock(v: ReturnType<typeof validate>): string {
   }
   if (v.status === 'passed') {
     return `<p class="status-kicker">Oral Defense Passed</p>
-        <p class="status-line"><time datetime="${v.iso}">${dateET(v.start!, v.dateOnly)}</time></p>`;
+        <p class="status-line"><time datetime="${v.iso}">${dateNumeric(v.iso!, v.start!)}</time></p>`;
   }
   if (v.status === 'date-set') {
     return `<p class="status-kicker" id="status-kicker">Defense Date</p>
@@ -95,6 +103,34 @@ function statusBlock(v: ReturnType<typeof validate>): string {
           <div class="unit"><span class="num" data-unit="m">00</span><span class="lbl">Minutes</span></div>
         </div>`;
 }
+
+const GUESTBOOK = `<section class="gb" id="guestbook" aria-labelledby="gb-title">
+      <div class="wrap">
+        <div class="divider" aria-hidden="true"></div>
+        <h2 class="gb-kicker" id="gb-title">Leave a Note</h2>
+        <p class="gb-sub">Share a congratulations or a remark. Notes appear here once approved.</p>
+        <form class="gb-form" id="gb-form" novalidate>
+          <div class="gb-row">
+            <div><label for="gb-name">Name</label><input id="gb-name" name="name" maxlength="60" autocomplete="name" placeholder="Your name" required /></div>
+            <div><label for="gb-rel">How you know Jack <span class="gb-opt">(optional)</span></label><input id="gb-rel" name="relation" maxlength="60" placeholder="Colleague, family, classmate" /></div>
+          </div>
+          <div><label for="gb-msg">Message</label><textarea id="gb-msg" name="message" maxlength="600" placeholder="Write your note" required></textarea></div>
+          <div class="gb-hp" aria-hidden="true"><label for="gb-web">Website</label><input id="gb-web" name="website" tabindex="-1" autocomplete="off" /></div>
+          <div class="gb-foot"><span class="gb-note" id="gb-status" role="status" aria-live="polite">Reviewed before posting.</span><button class="cta" type="submit" id="gb-submit">Sign the Guestbook</button></div>
+        </form>
+      </div>
+      <div class="gb-wall" id="gb-wall" aria-label="Notes from visitors" hidden></div>
+    </section>`;
+
+const NAV = (guestbook: boolean) => `<nav class="topnav" id="topnav" aria-label="Site">
+      <div class="topnav-in">
+        <a class="brand" href="#top" aria-label="Back to top"><span class="brand-mark" aria-hidden="true">JD</span><span class="brand-name">Jack Dee</span></a>
+        <div class="topnav-links">
+          ${guestbook ? '<a class="nav-link" href="#guestbook">Leave a Note</a>' : ''}
+          <a class="nav-link nav-pill" href="https://bevisible.work" target="_blank" rel="noopener">Research<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        </div>
+      </div>
+    </nav>`;
 
 export function defensePage(): Plugin {
   return {
@@ -118,6 +154,8 @@ export function defensePage(): Plugin {
           </figure>`
         : '';
       const out = html
+        .replace('<!--GUESTBOOK-->', (defense as { guestbook?: boolean }).guestbook ? GUESTBOOK : '')
+        .replace('<!--SITE_NAV-->', NAV(Boolean((defense as { guestbook?: boolean }).guestbook)))
         .replaceAll('Doctoral Candidate', tagline)
         .replace('<!--DEFENSE_PORTRAIT-->', portrait)
         // Name sits under the portrait; without a portrait it returns to the hero.

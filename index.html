@@ -190,10 +190,65 @@
         .unit, [data-state="pending"] .status-line { border: 1px solid CanvasText; }
         .divider { background: CanvasText; }
       }
+
+      /* Guestbook */
+      .gb { padding: 0 0 72px; text-align: center; }
+      .gb .divider { margin-top: 0; }
+      .gb-kicker { font-family: var(--display); font-weight: 400; font-size: clamp(22px, 4.4vw, 30px); background: var(--sheen); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
+      .gb-sub { color: var(--muted); margin-top: 8px; font-size: 15px; }
+      .gb-form { margin: 26px auto 0; max-width: 560px; display: grid; gap: 12px; text-align: left; position: relative; }
+      .gb-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .gb-form label { display: block; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
+      .gb-opt { text-transform: none; letter-spacing: 0; }
+      .gb-form input, .gb-form textarea { width: 100%; background: linear-gradient(#112240d9, #0a192fe6); border: 1px solid var(--line); border-radius: 6px; color: var(--silver-hi); font: inherit; font-size: 16px; padding: 12px 14px; }
+      .gb-form textarea { min-height: 110px; resize: vertical; }
+      .gb-form input:focus, .gb-form textarea:focus { outline: 2px solid var(--silver); outline-offset: 1px; }
+      .gb-form input[aria-invalid=true], .gb-form textarea[aria-invalid=true] { border-color: #e88; }
+      .gb-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+      .gb-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+      .gb-note { font-size: 13.5px; color: var(--muted); }
+      .gb-note.is-ok { color: var(--silver-hi); }
+      .gb-note.is-err { color: #f2a6a6; }
+      .gb-form .cta { margin-top: 0; font-family: var(--sans); cursor: pointer; }
+      .gb-form .cta[disabled] { opacity: .6; cursor: wait; }
+      .gb-wall { margin-top: 56px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+      .gb-track { display: flex; gap: 18px; width: max-content; padding: 6px 0; animation: gbscroll var(--gb-dur, 60s) linear infinite; }
+      .gb-track + .gb-track { margin-top: 18px; animation-direction: reverse; }
+      .gb-wall:hover .gb-track, .gb-wall:focus-within .gb-track { animation-play-state: paused; }
+      @keyframes gbscroll { to { transform: translateX(-50%); } }
+      .gb-card { width: 300px; flex: none; text-align: left; border: 1px solid var(--line); border-radius: 8px; background: linear-gradient(#112240d9, #0a192fe6); padding: 18px 20px 16px; box-shadow: inset 0 1px #ffffff0a, 0 12px 30px #0000004d; }
+      .gb-card .qm { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 46px; line-height: 1; height: 26px; margin-top: -2px; display: block; background: var(--sheen); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .gb-card p { color: var(--body); font-size: 15px; line-height: 1.55; margin-top: 6px; white-space: pre-line; overflow-wrap: anywhere; }
+      .gb-card .who { margin-top: 12px; color: var(--silver-hi); font-weight: 600; font-size: 14px; }
+      .gb-card .rel { color: var(--muted); font-size: 12.5px; }
+      .gb-wall.is-static { -webkit-mask-image: none; mask-image: none; }
+      .gb-wall.is-static .gb-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; max-width: 980px; margin: 0 auto; padding: 0 22px; }
+      @media (max-width: 560px) { .gb-row { grid-template-columns: 1fr; } .gb-card { width: 250px; } .gb-form .cta { width: 100%; } }
+      @media (prefers-reduced-motion: reduce) { .gb-track { animation: none; } .gb-wall { overflow-x: auto; } }
+
+      /* Pinned menu bar */
+      html { scroll-behavior: smooth; }
+      #guestbook, #top { scroll-margin-top: 76px; }
+      .topnav { position: sticky; top: 0; z-index: 50; background: #060f1eb8; -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); border-bottom: 1px solid var(--line); transition: box-shadow .2s, background .2s; }
+      .topnav.is-scrolled { background: #060f1ee6; box-shadow: 0 10px 30px #00000059; }
+      .topnav-in { max-width: 1080px; margin: 0 auto; padding: 0 22px; height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+      .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+      .brand-mark { width: 36px; height: 36px; border-radius: 50%; border: 1px solid #c9d1dc66; display: grid; place-items: center; font-family: var(--display); font-size: 12.5px; letter-spacing: .02em; color: var(--silver-hi); background: radial-gradient(circle at 30% 25%, #16305a, var(--navy)); }
+      .brand-name { font-family: var(--display); font-size: 14px; letter-spacing: .04em; background: var(--sheen); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .topnav-links { display: flex; align-items: center; gap: 8px; }
+      .nav-link { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; color: var(--silver); text-decoration: none; font-size: 14.5px; font-weight: 600; letter-spacing: .06em; transition: color .15s, background .15s; }
+      .nav-link:hover { color: var(--silver-hi); background: #c9d1dc14; }
+      .nav-link:focus-visible, .brand:focus-visible { outline: 2px solid var(--silver-hi); outline-offset: 3px; }
+      .nav-pill { border: 1px solid #c9d1dc59; color: var(--silver-hi); }
+      .nav-pill:hover { background: linear-gradient(120deg, var(--silver), var(--silver-hi)); color: var(--navy); border-color: transparent; }
+      .nav-pill svg { width: 15px; height: 15px; }
+      @media (max-width: 480px) { .topnav-in { height: 56px; padding: 0 14px; } .brand-name { display: none; } .nav-link { padding: 0 12px; font-size: 13.5px; letter-spacing: .04em; } }
+      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
     </style>
   </head>
   <body>
-    <header class="hero">
+    <!--SITE_NAV-->
+    <header class="hero" id="top">
       <svg class="arcs" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
         <path d="M0 120 Q600 -40 1200 120" fill="none" stroke="#C9D1DC" stroke-width="1.5"/>
         <path d="M0 120 Q600 10 1200 120" fill="none" stroke="#C9D1DC" stroke-width="1"/>
@@ -270,6 +325,7 @@
       </div>
     </main>
 
+    <!--GUESTBOOK-->
     <footer>
       <div class="wrap">© <span id="yr">2026</span> Jack Darnell Givens</div>
     </footer>
@@ -318,6 +374,80 @@
         render();
         if (target > Date.now()) handle = setInterval(render, 1000);
       }
+
+      // Guestbook: approved notes scroll; new notes wait for Jack's approval.
+      const gbForm = document.getElementById('gb-form');
+      if (gbForm) {
+        const wall = document.getElementById('gb-wall');
+        const status = document.getElementById('gb-status');
+        const btn = document.getElementById('gb-submit');
+        const opened = Date.now();
+        const card = (n) => {
+          const f = document.createElement('figure'); f.className = 'gb-card';
+          const q = document.createElement('span'); q.className = 'qm'; q.textContent = '“'; q.setAttribute('aria-hidden', 'true');
+          const p = document.createElement('p'); p.textContent = n.message;
+          f.append(q, p);
+          // Names only arrive when Jack has switched them on.
+          if (n.name) {
+            const c = document.createElement('figcaption');
+            const w = document.createElement('div'); w.className = 'who'; w.textContent = n.name;
+            c.append(w);
+            if (n.relation) { const r = document.createElement('div'); r.className = 'rel'; r.textContent = n.relation; c.append(r); }
+            f.append(c);
+          }
+          return f;
+        };
+        const track = (notes, copies) => {
+          const t = document.createElement('div'); t.className = 'gb-track';
+          for (let i = 0; i < copies; i++) notes.forEach((n) => { const el = card(n); if (i) el.setAttribute('aria-hidden', 'true'); t.append(el); });
+          return t;
+        };
+        fetch('/api/guestbook.php', { headers: { Accept: 'application/json' } })
+          .then((r) => (r.ok ? r.json() : { notes: [] }))
+          .then(({ notes = [] }) => {
+            if (!notes.length) return;
+            wall.replaceChildren();
+            if (notes.length < 4) {
+              wall.classList.add('is-static'); wall.append(track(notes, 1));
+            } else {
+              const rows = notes.length >= 8 ? [notes.filter((_, i) => i % 2 === 0), notes.filter((_, i) => i % 2 === 1)] : [notes];
+              rows.forEach((row) => {
+                // Repeat the row until one half is wider than the screen, then double it for a seamless loop.
+                const reps = Math.max(1, Math.ceil((window.innerWidth + 320) / (row.length * 318)));
+                const half = Array.from({ length: reps }, () => row).flat();
+                const t = track(half, 2);
+                t.style.setProperty('--gb-dur', `${Math.round(half.length * 9)}s`);
+                wall.append(t);
+              });
+            }
+            wall.hidden = false;
+          })
+          .catch(() => {});
+        gbForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const data = Object.fromEntries(new FormData(gbForm));
+          let bad = false;
+          ['name', 'message'].forEach((k) => {
+            const el = gbForm.elements[k]; const empty = !String(data[k] || '').trim();
+            el.setAttribute('aria-invalid', String(empty)); if (empty) bad = true;
+          });
+          status.classList.remove('is-ok', 'is-err');
+          if (bad) { status.textContent = 'Please add your name and a message.'; status.classList.add('is-err'); return; }
+          btn.disabled = true; status.textContent = 'Sending...';
+          try {
+            const r = await fetch('/api/guestbook.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, elapsed: Date.now() - opened }) });
+            const out = await r.json().catch(() => ({}));
+            if (!r.ok || !out.ok) throw new Error(out.error || 'Something went wrong. Please try again.');
+            gbForm.reset(); status.textContent = out.message; status.classList.add('is-ok');
+          } catch (err) {
+            status.textContent = err.message || 'Something went wrong. Please try again.'; status.classList.add('is-err');
+          } finally { btn.disabled = false; }
+        });
+      }
+
+      // Menu bar gains depth once the page scrolls.
+      const nav = document.getElementById('topnav');
+      if (nav) { const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 8); onScroll(); window.addEventListener('scroll', onScroll, { passive: true }); }
     </script>
   </body>
 </html>

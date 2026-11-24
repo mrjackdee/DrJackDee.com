@@ -36,4 +36,7 @@ export const defense = {
 
   // true shows the portrait beside the quote; false removes it from the page.
   showPortrait: true,
+
+  // true shows the "Leave a Note" guestbook. Notes appear only after Jack approves them.
+  guestbook: true,
 };

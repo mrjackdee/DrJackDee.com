@@ -1,0 +1,4 @@
+Options -Indexes
+<Files "gb-lib.php">
+  Require all denied
+</Files>
