@@ -173,7 +173,7 @@
         .content { padding: 44px 0 52px; }
         .countdown { gap: 8px; }
         .unit { min-width: 0; flex: 1; max-width: 104px; }
-        .cta { width: 100%; }
+        /* buttons size to their text */
       }
       @media (max-width: 350px) { .eyebrow { font-size: 12px; letter-spacing: .1em; padding: 8px 14px; } }
       @media (prefers-reduced-motion: reduce) { .seal .ring, .bv-ring { animation: none; } .cta { transition: none; } }
@@ -223,7 +223,7 @@
       .gb-card .rel { color: var(--muted); font-size: 12.5px; }
       .gb-wall.is-static { -webkit-mask-image: none; mask-image: none; }
       .gb-wall.is-static .gb-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; max-width: 980px; margin: 0 auto; padding: 0 22px; }
-      @media (max-width: 560px) { .gb-row { grid-template-columns: 1fr; } .gb-card { width: 250px; } .gb-form .cta { width: 100%; } }
+      @media (max-width: 560px) { .gb-row { grid-template-columns: 1fr; } .gb-card { width: 250px; } .gb-foot { flex-direction: column-reverse; align-items: center; text-align: center; } }
       @media (prefers-reduced-motion: reduce) { .gb-track { animation: none; } .gb-wall { overflow-x: auto; } }
 
       /* Pinned menu bar */
@@ -271,6 +271,7 @@
       .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
       .status--hero .stamp { width: 168px; height: 168px; margin-bottom: 26px; }
       @media (max-width: 480px) { .status--hero .stamp { width: 132px; height: 132px; } }
+      .brand { min-height: 44px; min-width: 44px; }
     </style>
   </head>
   <body>

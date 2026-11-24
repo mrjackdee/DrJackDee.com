@@ -123,7 +123,7 @@ const GUESTBOOK = `<section class="gb" id="guestbook" aria-labelledby="gb-title"
 
 const NAV = (guestbook: boolean) => `<nav class="topnav" id="topnav" aria-label="Site">
       <div class="topnav-in">
-        <a class="brand" href="https://mrjackdee.com" aria-label="Jack Dee: visit MrJackDee.com">
+        <a class="brand" href="https://mrjackdee.com" aria-label="Dr. Jack Dee: visit MrJackDee.com">
           <svg class="nav-seal seal" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
             <defs>
               <linearGradient id="svn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C9D1DC"/><stop offset=".5" stop-color="#EEF2F6"/><stop offset="1" stop-color="#8F9BAD"/></linearGradient>
@@ -134,7 +134,7 @@ const NAV = (guestbook: boolean) => `<nav class="topnav" id="topnav" aria-label=
             <circle cx="50" cy="50" r="28" fill="none" stroke="url(#svn)" stroke-width="1.4"/>
             <text x="50" y="57" text-anchor="middle" font-family="Michroma, Oxanium, sans-serif" font-size="19" fill="url(#svn)">JD</text>
           </svg>
-          <span class="brand-name">Jack Dee</span>
+          <span class="brand-name">Dr. Jack Dee</span>
         </a>
         <div class="topnav-links">
           ${guestbook ? '<a class="nav-link" href="#guestbook">Leave a Note</a>' : ''}
