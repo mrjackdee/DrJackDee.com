@@ -146,6 +146,39 @@ const NAV = (guestbook: boolean) => `<nav class="topnav" id="topnav" aria-label=
       </div>
     </nav>`;
 
+/** "PASSED" stamp shown above the result. Ink: 'silver' matches the site; 'green' is the classic stamp. */
+const STAMP_INK: 'silver' | 'green' = (process.env.STAMP_INK as 'silver' | 'green') || 'silver';
+const STAMP = () => {
+  const ink = STAMP_INK === 'green' ? ['#2FA35A', '#5FD08A'] : ['#C9D1DC', '#EEF2F6'];
+  return `<svg class="stamp" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="grit-s" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="7" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.6 1.75" result="mask"/>
+      <feComposite in="SourceGraphic" in2="mask" operator="in" result="g"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="3" result="w"/>
+      <feDisplacementMap in="g" in2="w" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <linearGradient id="ink-s" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${ink[0]}"/><stop offset=".55" stop-color="${ink[1]}"/><stop offset="1" stop-color="${ink[0]}"/></linearGradient>
+    <path id="top-s" d="M42,120 a78,78 0 0,1 156,0"/>
+    <path id="bot-s" d="M34,120 a86,86 0 0,0 172,0"/>
+  </defs>
+  <g filter="url(#grit-s)" fill="none" stroke="url(#ink-s)">
+    <circle cx="120" cy="120" r="112" stroke-width="6"/>
+    <circle cx="120" cy="120" r="101" stroke-width="2"/>
+    <circle cx="120" cy="120" r="66" stroke-width="2"/>
+    <g fill="url(#ink-s)" stroke="none" font-family="Michroma, Oxanium, sans-serif">
+      <text font-size="12.5" letter-spacing="3.2" text-anchor="middle"><textPath href="#top-s" startOffset="50%">ORAL DEFENSE</textPath></text>
+      <text font-size="11.5" letter-spacing="3" text-anchor="middle" dy="4"><textPath href="#bot-s" startOffset="50%">11 · 23 · 2026</textPath></text>
+      <circle cx="31" cy="120" r="3"/><circle cx="209" cy="120" r="3"/>
+    </g>
+    <path d="M92 96 l20 20 l40 -44" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="18" y="122" width="204" height="44" rx="4" fill="#0a192f" stroke-width="4"/>
+    <text x="120" y="155" text-anchor="middle" font-family="Michroma, Oxanium, sans-serif" font-size="27" letter-spacing="5" fill="url(#ink-s)" stroke="none">PASSED</text>
+  </g>
+</svg>`;
+};
+
 export function defensePage(): Plugin {
   return {
     name: 'defense-page',
@@ -187,7 +220,7 @@ export function defensePage(): Plugin {
         // Passed: open with the result, then the dissertation title, labeled.
         .replace('<p class="eyebrow">FINAL DEFENSE ANNOUNCEMENT</p>', '')
         .replace('<h1 class="study">',
-          `<section class="status status--hero" id="defense" data-state="passed" aria-label="Defense result">${statusBlock(v)}</section>
+          `<section class="status status--hero" id="defense" data-state="passed" aria-label="Defense result">${STAMP()}${statusBlock(v)}</section>
         <h1 class="study study--labeled"><span class="study-label">Title</span>`);
     },
   };

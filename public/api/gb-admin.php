@@ -34,6 +34,15 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         exit;
     }
     $id = (int) ($_POST['id'] ?? 0);
+    if (($_POST['action'] ?? '') === 'delete' && $id > 0 && ($_POST['confirm'] ?? '') === 'yes') {
+        // Permanent, by Jack's choice: removes the note and its edit history. Two taps required.
+        $db->beginTransaction();
+        $db->prepare('DELETE FROM edits WHERE note_id = ?')->execute([$id]);
+        $db->prepare('DELETE FROM notes WHERE id = ?')->execute([$id]);
+        $db->commit();
+        header('Location: gb-admin.php?t=' . rawurlencode($t) . '&f=' . rawurlencode('Deleted permanently.'), true, 303);
+        exit;
+    }
     if (($_POST['action'] ?? '') === 'edit' && $id > 0) {
         $cur = $db->prepare('SELECT name, relation, message FROM notes WHERE id = ?');
         $cur->execute([$id]);
@@ -103,6 +112,10 @@ button{font:inherit;font-size:14px;font-weight:600;border-radius:4px;padding:9px
 .ok{background:linear-gradient(120deg,var(--silver),var(--hi));color:var(--navy);border:0}.ghost{background:transparent;color:var(--silver)}
 .empty{color:var(--muted);margin-top:24px}
 .alert{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}.alert.ok{color:#7fd1a4}.alert.bad{color:#f2a6a6}
+.del{order:9;margin-left:auto}.del summary{cursor:pointer;color:#f2a6a6;font-size:14px;font-weight:600;padding:9px 4px;list-style:none}.del summary::-webkit-details-marker{display:none}
+.del form{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px;font-size:13.5px;color:#f2a6a6}
+.danger{background:#7a1f2b;color:#fff;border:1px solid #b33a4a}
+.actions{align-items:flex-start}
 .edited{margin-top:8px;font-size:12.5px;color:var(--muted);font-style:italic}
 .edit{margin-top:12px}.edit summary{cursor:pointer;color:var(--silver);font-size:14px;font-weight:600}
 .edit form{display:grid;gap:10px;margin-top:10px}.edit label{display:grid;gap:4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
@@ -139,6 +152,11 @@ button{font:inherit;font-size:14px;font-weight:600;border-radius:4px;padding:9px
     </form>
   </details>
   <div class="actions">
+    <details class="del"><summary>Delete</summary>
+      <form method="post"><input type="hidden" name="t" value="<?= gb_h($t) ?>"><input type="hidden" name="id" value="<?= $id ?>"><input type="hidden" name="action" value="delete"><input type="hidden" name="confirm" value="yes">
+        <span>This removes the note for good. It cannot be undone.</span><button class="danger">Delete permanently</button>
+      </form>
+    </details>
     <?php if ($r['status'] !== 'approved') echo btn($t, $id, 'approve', 'Approve', 'ok'); ?>
     <?php if ($r['status'] !== 'hidden') echo btn($t, $id, 'hide', 'Hide', 'ghost'); ?>
     <?php if ($r['status'] === 'hidden') echo btn($t, $id, 'pending', 'Restore to pending', 'ghost'); ?>
