@@ -123,10 +123,25 @@ const GUESTBOOK = `<section class="gb" id="guestbook" aria-labelledby="gb-title"
 
 const NAV = (guestbook: boolean) => `<nav class="topnav" id="topnav" aria-label="Site">
       <div class="topnav-in">
-        <a class="brand" href="#top" aria-label="Back to top"><span class="brand-mark" aria-hidden="true">JD</span><span class="brand-name">Jack Dee</span></a>
+        <a class="brand" href="https://mrjackdee.com" aria-label="Jack Dee: visit MrJackDee.com">
+          <svg class="nav-seal seal" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="svn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C9D1DC"/><stop offset=".5" stop-color="#EEF2F6"/><stop offset="1" stop-color="#8F9BAD"/></linearGradient>
+              <path id="arcn" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/>
+            </defs>
+            <circle cx="50" cy="50" r="47" fill="none" stroke="url(#svn)" stroke-width="2"/>
+            <g class="ring"><text font-family="IBM Plex Sans, sans-serif" font-size="7" font-weight="500" letter-spacing="2.4" fill="#A9B4C4"><textPath href="#arcn">RESEARCH · STRATEGY · TRANSFORMATION · </textPath></text></g>
+            <circle cx="50" cy="50" r="28" fill="none" stroke="url(#svn)" stroke-width="1.4"/>
+            <text x="50" y="57" text-anchor="middle" font-family="Michroma, Oxanium, sans-serif" font-size="19" fill="url(#svn)">JD</text>
+          </svg>
+          <span class="brand-name">Jack Dee</span>
+        </a>
         <div class="topnav-links">
           ${guestbook ? '<a class="nav-link" href="#guestbook">Leave a Note</a>' : ''}
-          <a class="nav-link nav-pill" href="https://bevisible.work" target="_blank" rel="noopener">Research<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <a class="nav-link nav-pill nav-bv" href="https://bevisible.work" aria-label="Research: visit BeVISIBLE.work">
+            <span class="nav-bv-seal" aria-hidden="true"><img class="bv-ring" src="/bv-ring-208.webp" alt="" width="30" height="30" decoding="async"/><img src="/bv-center-208.webp" alt="" width="30" height="30" decoding="async"/></span>
+            Research
+          </a>
         </div>
       </div>
     </nav>`;

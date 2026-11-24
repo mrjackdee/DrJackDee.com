@@ -253,6 +253,13 @@
       .content--marks { padding-top: 8px; }
       .content--marks .research-mark { margin-top: 0; }
       .gb { padding-bottom: 40px; margin-top: -24px; }
+      /* Seals in the menu bar */
+      .nav-seal { width: 42px; height: 42px; margin: 0; flex: none; }
+      .nav-bv { padding-left: 6px; gap: 9px; }
+      .nav-bv-seal { position: relative; width: 30px; height: 30px; flex: none; }
+      .nav-bv-seal img { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .nav-bv:hover .nav-bv-seal { filter: brightness(.35); }
+      @media (max-width: 480px) { .nav-seal { width: 38px; height: 38px; } .nav-bv-seal { width: 26px; height: 26px; } }
     </style>
   </head>
   <body>
