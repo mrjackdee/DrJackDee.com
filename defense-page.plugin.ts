@@ -28,16 +28,16 @@ function PLAYER(): string {
   const webp = v.poster.replace(/\.jpg$/, '.webp');
   return `<section class="player-sec" id="defense-video" aria-label="Oral defense video">
           <div class="player" data-player>
-            <video controls preload="none" playsinline poster="${v.poster}" width="1600" height="1000" aria-label="Oral defense of Jack Dee, November 23, 2026">
+            <video preload="none" playsinline poster="${v.poster}" width="1600" height="1000" aria-label="Oral defense of Jack Dee, November 23, 2026">
               <source src="${v.src}" type="video/mp4" />
               <a href="${v.src}">Download the oral defense video</a>
             </video>
             <button class="player-play" type="button" data-play-video aria-label="Play the oral defense video${v.length ? `, ${v.length}` : ''}">
-              <picture class="player-poster" aria-hidden="true"><source srcset="${webp}" type="image/webp" /><img src="${v.poster}" alt="" width="1600" height="1000" loading="lazy" decoding="async" /></picture>
-              <span class="player-btn" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M8.5 5.8v12.4L18.5 12z" fill="currentColor"/></svg></span>
+              <picture class="player-poster" aria-hidden="true"><source srcset="${webp}" type="image/webp" /><img src="${v.poster}" alt="" width="1600" height="1000" decoding="async" /></picture>
+              <span class="player-btn" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M8.5 5.8v12.4L18.5 12z" fill="currentColor"/></svg>Play${v.length ? `<span class="player-len">${v.length}</span>` : ''}</span>
             </button>
           </div>
-          <p class="player-meta">Oral Defense<span class="sep"> · </span>November 23, 2026${v.length ? `<span class="sep"> · </span>${v.length}` : ''}<span class="sep"> · </span><a href="${v.src}" target="_blank" rel="noopener noreferrer">Open in a new tab<span class="sr-only"> (opens in a new tab)</span></a></p>
+          <p class="player-meta">Oral Defense Video<span class="sep"> · </span>25min<span class="sep"> · </span><a href="${v.src}" target="_blank" rel="noopener noreferrer">Open in a new tab<span class="sr-only"> (opens in a new tab)</span></a></p>
         </section>
         `;
 }
@@ -256,7 +256,7 @@ export function defensePage(): Plugin {
         .replace(section, '')
         // Passed: open with the result, then the dissertation title, labeled.
         .replace('<p class="eyebrow">FINAL DEFENSE ANNOUNCEMENT</p>', WATCH())
-        .replace('<div class="intro ', PLAYER() + '<div class="intro ')
+        .replace('<div class="quote-col">', '<div class="quote-col">' + PLAYER())
         .replace('<h1 class="study">',
           `<section class="status status--hero" id="defense" data-state="passed" aria-label="Defense result"><div class="hero-seal">${STAMP()}<span class="hero-rule" aria-hidden="true"></span><span class="school school--hero"><span class="school-name">William Howard Taft</span><span class="school-sub">University</span><span class="school-college">Deming School of Business</span></span></div>${statusBlock(v)}</section>
         <h1 class="study study--labeled"><span class="study-label">Title</span>`);
