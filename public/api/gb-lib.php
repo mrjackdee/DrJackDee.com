@@ -5,6 +5,8 @@ if (basename($_SERVER['SCRIPT_FILENAME'] ?? '') === 'gb-lib.php') { http_respons
 
 const GB_NOTIFY_TO   = 'jackdee.sync@gmail.com';
 const GB_SITE        = 'https://drjackdee.com';
+/** Cloudflare worker that sends alerts through drjackdee.com Email Routing (signed requests only). */
+const GB_MAILER_URL  = 'https://drjackdee-guestbook-mailer.jackdee-sync.workers.dev';
 
 /** domains/drjackdee.com/guestbook-data, beside public_html (never deployed over, never web-served). */
 function gb_data_dir(): string {
@@ -69,6 +71,49 @@ function gb_secret(): string {
     return $s;
 }
 
+/** Server-only P-256 signing key for alert requests; created once, never leaves the data folder. */
+function gb_signing_key() {
+    $f = gb_data_dir() . '/mailer-signing.pem';
+    if (!is_file($f)) {
+        $k = openssl_pkey_new(['private_key_type' => OPENSSL_KEYTYPE_EC, 'curve_name' => 'prime256v1']);
+        if (!$k || !openssl_pkey_export($k, $pem)) throw new RuntimeException('keygen failed');
+        $fh = fopen($f, 'x');
+        if ($fh) { fwrite($fh, $pem); fclose($fh); chmod($f, 0600); }
+    }
+    $k = openssl_pkey_get_private((string) file_get_contents($f));
+    if (!$k) throw new RuntimeException('bad signing key');
+    return $k;
+}
+
+function gb_b64url(string $b): string { return rtrim(strtr(base64_encode($b), '+/', '-_'), '='); }
+
+/** Public half as a JWK, for the worker to verify signatures. */
+function gb_public_jwk(): array {
+    $d = openssl_pkey_get_details(gb_signing_key());
+    return ['kty' => 'EC', 'crv' => 'P-256', 'x' => gb_b64url($d['ec']['x']), 'y' => gb_b64url($d['ec']['y'])];
+}
+
+/** ECDSA signature in the raw r||s form WebCrypto expects (openssl gives DER). */
+function gb_sign(string $data): string {
+    if (!openssl_sign($data, $der, gb_signing_key(), OPENSSL_ALGO_SHA256)) throw new RuntimeException('sign failed');
+    $o = 2; if (ord($der[1]) & 0x80) $o += ord($der[1]) & 0x7f;
+    $rl = ord($der[$o + 1]); $r = substr($der, $o + 2, $rl); $o += 2 + $rl;
+    $sl = ord($der[$o + 1]); $s = substr($der, $o + 2, $sl);
+    $fix = fn($v) => str_pad(ltrim($v, "\0"), 32, "\0", STR_PAD_LEFT);
+    return gb_b64url($fix($r) . $fix($s));
+}
+
+function gb_send_via_worker(string $subject, string $html, string $text): bool {
+    if (str_contains(GB_MAILER_URL, 'WORKERS_SUBDOMAIN') || !function_exists('curl_init')) return false;
+    $body = json_encode(['ts' => time(), 'subject' => $subject, 'html' => $html, 'text' => $text], JSON_UNESCAPED_UNICODE);
+    $ch = curl_init(GB_MAILER_URL);
+    curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_POSTFIELDS => $body, CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 8,
+        CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'X-GB-Signature: ' . gb_sign($body)]]);
+    $res = curl_exec($ch); $code = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE); curl_close($ch);
+    if ($code !== 200) error_log('[guestbook] worker send failed: ' . $code . ' ' . substr((string) $res, 0, 200));
+    return $code === 200;
+}
+
 function gb_token(string $scope): string {
     return substr(hash_hmac('sha256', $scope, gb_secret()), 0, 40);
 }
@@ -129,7 +174,18 @@ function gb_notify(int $id, string $name, string $relation, string $message): vo
         'From: drjackdee.com Guestbook <guestbook@drjackdee.com>',
         'Reply-To: ' . GB_NOTIFY_TO,
     ]);
-    $subject = '=?UTF-8?B?' . base64_encode('New guestbook note from ' . $name) . '?=';
+    $plainSubject = 'New guestbook note from ' . $name;
+    $text = $name . ($relation !== '' ? ' (' . $relation . ')' : '') . " left a note:\n\n" . $message . "\n\nReview and approve: " . $review;
+    try {
+        if (gb_send_via_worker($plainSubject, $html, $text)) {
+            gb_db()->prepare('UPDATE notes SET notified = 1 WHERE id = ?')->execute([$id]);
+            return;
+        }
+    } catch (Throwable $e) {
+        error_log('[guestbook] worker path failed: ' . $e->getMessage());
+    }
+    // Fallback: the server's own mail (less reliable with Gmail).
+    $subject = '=?UTF-8?B?' . base64_encode($plainSubject) . '?=';
     try {
         // Envelope sender on drjackdee.com, so receivers check it against the domain's SPF record
         // (which authorizes Hostinger's mail servers alongside Cloudflare forwarding).
