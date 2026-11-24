@@ -179,6 +179,8 @@ const STAMP = () => {
 </svg>`;
 };
 
+const SCHOOL = '<span class="school"><span class="school-name">William Howard Taft</span><span class="school-sub">University</span><span class="school-college">Deming School of Business</span></span>';
+
 export function defensePage(): Plugin {
   return {
     name: 'defense-page',
@@ -197,7 +199,7 @@ export function defensePage(): Plugin {
                    width="480" height="600" loading="lazy" decoding="async"
                    alt="Jack Darnell Givens in academic regalia, smiling, with the Dallas skyline at dusk behind him." />
             </picture>
-            <figcaption><span class="name">Jack Darnell Givens</span><span class="candidacy">${role}</span><span class="concentration">Leadership &amp; Strategy</span><span class="school"><span class="school-name">William Howard Taft</span><span class="school-sub">University</span><span class="school-college">Deming School of Business</span></span></figcaption>
+            <figcaption><span class="name">Jack Darnell Givens</span><span class="candidacy">${role}</span><span class="concentration">Organizational Leadership &amp; Strategy</span>${v.status === 'passed' ? '' : SCHOOL}</figcaption>
           </figure>`
         : '';
       const out = html
@@ -206,7 +208,7 @@ export function defensePage(): Plugin {
         .replaceAll('Doctoral Candidate', tagline)
         .replace('<!--DEFENSE_PORTRAIT-->', portrait)
         // Name sits under the portrait; without a portrait it returns to the hero.
-        .replace('<!--HERO_NAME-->', defense.showPortrait ? '' : `<p class="name">Jack Darnell Givens</p><p class="candidacy">${role}</p><p class="concentration">Leadership &amp; Strategy</p><p class="school"><span class="school-name">William Howard Taft</span><span class="school-sub">University</span><span class="school-college">Deming School of Business</span></p>`)
+        .replace('<!--HERO_NAME-->', defense.showPortrait ? '' : `<p class="name">Jack Darnell Givens</p><p class="candidacy">${role}</p><p class="concentration">Organizational Leadership &amp; Strategy</p><p class="school"><span class="school-name">William Howard Taft</span><span class="school-sub">University</span><span class="school-college">Deming School of Business</span></p>`)
         .replace('%DEFENSE_LAYOUT%', defense.showPortrait ? 'with-portrait' : 'no-portrait')
         .replace('<!--DEFENSE_STATUS-->', statusBlock(v))
         .replace('%DEFENSE_STATE%', v.status)
@@ -220,7 +222,7 @@ export function defensePage(): Plugin {
         // Passed: open with the result, then the dissertation title, labeled.
         .replace('<p class="eyebrow">FINAL DEFENSE ANNOUNCEMENT</p>', '')
         .replace('<h1 class="study">',
-          `<section class="status status--hero" id="defense" data-state="passed" aria-label="Defense result">${STAMP()}${statusBlock(v)}</section>
+          `<section class="status status--hero" id="defense" data-state="passed" aria-label="Defense result"><div class="hero-seal">${STAMP()}<span class="hero-rule" aria-hidden="true"></span><span class="school school--hero"><span class="school-name">William Howard Taft</span><span class="school-sub">University</span><span class="school-college">Deming School of Business</span></span></div>${statusBlock(v)}</section>
         <h1 class="study study--labeled"><span class="study-label">Title</span>`);
     },
   };

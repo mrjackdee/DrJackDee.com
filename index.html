@@ -276,6 +276,38 @@
       .quote { font-size: 15.5px; line-height: 1.7; }
       @media (min-width: 720px) { .intro.with-portrait .quote { font-size: 16.5px; line-height: 1.7; } }
       @media (max-width: 400px) { .creds--seal { font-size: 12px; letter-spacing: .05em; } }
+      /* Concentration sits below the degree, a step smaller */
+      .concentration { font-size: 12.5px; letter-spacing: .03em; margin-top: 3px; }
+      /* School lockup beside the PASSED stamp (passed state) */
+      .school--hero { margin: 4px auto 0; }
+      .school--hero .school-name { font-size: 22px; }
+      .school--hero .school-sub { font-size: 12px; }
+      .school--hero .school-college { font-size: 14.5px; }
+      .status--hero .stamp { margin-bottom: 18px; }
+      /* Stamp and school side by side */
+      .hero-seal { display: flex; align-items: center; justify-content: center; gap: 26px; margin-bottom: 8px; }
+      .hero-seal .stamp { margin: 0; width: 150px; height: 150px; }
+      .hero-rule { width: 1px; align-self: stretch; margin: 18px 0; background: linear-gradient(transparent, #c9d1dc80, transparent); }
+      .hero-seal .school--hero { margin: 0; text-align: center; }
+      @media (max-width: 480px) {
+        .hero-seal { gap: 14px; }
+        .hero-seal .stamp { width: 104px; height: 104px; }
+        .hero-rule { margin: 10px 0; }
+        .school--hero .school-name { font-size: 17px; }
+        .school--hero .school-sub { font-size: 10px; }
+        .school--hero .school-college { font-size: 12px; }
+      }
+      .nav-link, .school--hero .school-name, .school--hero .school-college { white-space: nowrap; }
+      @media (max-width: 340px) {
+        .hero-seal { gap: 10px; }
+        .hero-seal .stamp { width: 84px; height: 84px; }
+        .school--hero .school-name { font-size: 14px; }
+        .school--hero .school-sub { font-size: 9px; }
+        .school--hero .school-college { font-size: 10.5px; }
+        .topnav-in { padding: 0 10px; }
+        .nav-link { padding: 0 9px; font-size: 12.5px; letter-spacing: .02em; }
+        .nav-bv { padding-left: 4px; gap: 6px; }
+      }
     </style>
   </head>
   <body>
