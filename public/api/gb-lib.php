@@ -127,10 +127,13 @@ function gb_notify(int $id, string $name, string $relation, string $message): vo
         'MIME-Version: 1.0',
         'Content-Type: text/html; charset=UTF-8',
         'From: drjackdee.com Guestbook <guestbook@drjackdee.com>',
+        'Reply-To: ' . GB_NOTIFY_TO,
     ]);
     $subject = '=?UTF-8?B?' . base64_encode('New guestbook note from ' . $name) . '?=';
     try {
-        $sent = mail(GB_NOTIFY_TO, $subject, $html, $headers);
+        // Envelope sender on drjackdee.com, so receivers check it against the domain's SPF record
+        // (which authorizes Hostinger's mail servers alongside Cloudflare forwarding).
+        $sent = mail(GB_NOTIFY_TO, $subject, $html, $headers, '-fguestbook@drjackdee.com');
         if ($sent) gb_db()->prepare('UPDATE notes SET notified = 1 WHERE id = ?')->execute([$id]);
         else error_log('[guestbook] notify mail() returned false for note ' . $id);
     } catch (Throwable $e) {
