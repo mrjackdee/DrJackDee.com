@@ -78,7 +78,7 @@ function statusBlock(v: ReturnType<typeof validate>): string {
         <p class="status-line">Coming Soon</p>`;
   }
   if (v.status === 'passed') {
-    return `<p class="status-kicker">Defense Passed</p>
+    return `<p class="status-kicker">Oral Defense Passed</p>
         <p class="status-line"><time datetime="${v.iso}">${dateET(v.start!, v.dateOnly)}</time></p>`;
   }
   if (v.status === 'date-set') {
@@ -102,6 +102,9 @@ export function defensePage(): Plugin {
     transformIndexHtml(html) {
       if (!html.includes('<!--DEFENSE_STATUS-->')) return html;
       const v = validate();
+      // After a pass the caption drops "Candidate"; "Dr." stays off until conferral.
+      const role = v.status === 'passed' ? 'Doctor of Business Administration' : 'Doctor of Business Administration Candidate';
+      const tagline = v.status === 'passed' ? 'Doctor of Business Administration' : 'Doctoral Candidate';
       if (typeof defense.showPortrait !== 'boolean') fail('showPortrait must be true or false');
       const portrait = defense.showPortrait
         ? `<figure class="portrait">
@@ -111,17 +114,26 @@ export function defensePage(): Plugin {
                    width="480" height="600" loading="lazy" decoding="async"
                    alt="Jack Darnell Givens in academic regalia, smiling, with the Dallas skyline at dusk behind him." />
             </picture>
-            <figcaption><span class="name">Jack Darnell Givens</span><span class="candidacy">Doctor of Business Administration Candidate</span><span class="school"><span class="school-name">William Howard Taft</span><span class="school-sub">University</span><span class="school-college">Deming School of Business</span></span></figcaption>
+            <figcaption><span class="name">Jack Darnell Givens</span><span class="candidacy">${role}</span><span class="school"><span class="school-name">William Howard Taft</span><span class="school-sub">University</span><span class="school-college">Deming School of Business</span></span></figcaption>
           </figure>`
         : '';
-      return html
+      const out = html
+        .replaceAll('Doctoral Candidate', tagline)
         .replace('<!--DEFENSE_PORTRAIT-->', portrait)
         // Name sits under the portrait; without a portrait it returns to the hero.
-        .replace('<!--HERO_NAME-->', defense.showPortrait ? '' : '<p class="name">Jack Darnell Givens</p><p class="candidacy">Doctor of Business Administration Candidate</p><p class="school"><span class="school-name">William Howard Taft</span><span class="school-sub">University</span><span class="school-college">Deming School of Business</span></p>')
+        .replace('<!--HERO_NAME-->', defense.showPortrait ? '' : `<p class="name">Jack Darnell Givens</p><p class="candidacy">${role}</p><p class="school"><span class="school-name">William Howard Taft</span><span class="school-sub">University</span><span class="school-college">Deming School of Business</span></p>`)
         .replace('%DEFENSE_LAYOUT%', defense.showPortrait ? 'with-portrait' : 'no-portrait')
         .replace('<!--DEFENSE_STATUS-->', statusBlock(v))
         .replace('%DEFENSE_STATE%', v.status)
         .replace('%DEFENSE_START%', v.status === 'confirmed' ? v.iso! : v.status === 'date-set' ? endOfDayET(v.iso!) : '');
+      if (v.status !== 'passed') return out;
+      // Passed: the result replaces the hero badge, and the lower status block is removed.
+      const section = /\s*<!-- Date and status[^>]*-->\s*<section class="status" id="defense"[\s\S]*?<\/section>/;
+      if (!section.test(out) || !out.includes('<p class="eyebrow">FINAL DEFENSE ANNOUNCEMENT</p>')) fail('passed layout: template markers not found');
+      return out
+        .replace(section, '')
+        .replace('<p class="eyebrow">FINAL DEFENSE ANNOUNCEMENT</p>',
+          `<section class="status status--hero" id="defense" data-state="passed" aria-label="Defense result">${statusBlock(v)}</section>`);
     },
   };
 }
