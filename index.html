@@ -215,7 +215,7 @@
       .gb-form .cta { margin-top: 0; font-family: var(--sans); cursor: pointer; }
       .gb-form .cta[disabled] { opacity: .6; cursor: wait; }
       .gb-wall { margin-top: 56px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-      .gb-track { display: flex; gap: 18px; width: max-content; padding: 6px 0; animation: gbscroll var(--gb-dur, 60s) linear infinite; }
+      .gb-track { display: flex; align-items: flex-start; gap: 18px; width: max-content; padding: 6px 0; animation: gbscroll var(--gb-dur, 60s) linear infinite; }
       .gb-track + .gb-track { margin-top: 18px; animation-direction: reverse; }
       .gb-wall:hover .gb-track, .gb-wall:focus-within .gb-track { animation-play-state: paused; }
       @keyframes gbscroll { to { transform: translateX(-50%); } }
