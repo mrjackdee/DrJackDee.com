@@ -214,20 +214,26 @@
       .gb-note.is-err { color: #f2a6a6; }
       .gb-form .cta { margin-top: 0; font-family: var(--sans); cursor: pointer; }
       .gb-form .cta[disabled] { opacity: .6; cursor: wait; }
-      .gb-wall { margin-top: 56px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-      .gb-track { display: flex; align-items: flex-start; gap: 18px; width: max-content; padding: 6px 0; animation: gbscroll var(--gb-dur, 60s) linear infinite; }
-      .gb-track + .gb-track { margin-top: 18px; animation-direction: reverse; }
-      .gb-wall:hover .gb-track, .gb-wall:focus-within .gb-track { animation-play-state: paused; }
-      @keyframes gbscroll { to { transform: translateX(-50%); } }
-      .gb-card { width: 300px; flex: none; text-align: left; border: 1px solid var(--line); border-radius: 8px; background: linear-gradient(#112240d9, #0a192fe6); padding: 18px 20px 16px; box-shadow: inset 0 1px #ffffff0a, 0 12px 30px #0000004d; }
-      .gb-card .qm { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 46px; line-height: 1; height: 26px; margin-top: -2px; display: block; background: var(--sheen); -webkit-background-clip: text; background-clip: text; color: transparent; }
-      .gb-card p { color: var(--body); font-size: 15px; line-height: 1.55; margin-top: 6px; white-space: pre-line; overflow-wrap: anywhere; }
-      .gb-card .who { margin-top: 12px; color: var(--silver-hi); font-weight: 600; font-size: 14px; }
+      /* Guestbook spotlight: one note at a time, sized to its own message. */
+      .gb-wall { margin: 56px auto 0; max-width: 720px; padding: 0 18px; }
+      .gb-stage { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(#112240d9, #0a192fe6); box-shadow: inset 0 1px #ffffff0a, 0 18px 40px #00000059; transition: height .45s ease; touch-action: pan-y; }
+      .gb-card { position: absolute; inset: 0 0 auto 0; margin: 0; text-align: left; padding: 30px 30px 24px; opacity: 0; transform: translateX(16px); transition: opacity .45s ease, transform .45s ease; visibility: hidden; }
+      .gb-card.is-on { position: relative; opacity: 1; transform: none; visibility: visible; }
+      .gb-card .qm { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 72px; line-height: 1; height: 40px; display: block; background: var(--sheen); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .gb-card p { font-family: Fraunces, Georgia, serif; font-weight: 600; color: var(--silver-hi); font-size: 21px; line-height: 1.5; margin-top: 12px; white-space: pre-line; overflow-wrap: anywhere; }
+      .gb-card figcaption { margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--line); display: flex; align-items: center; gap: 12px; }
+      .gb-card .av { width: 38px; height: 38px; flex: none; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-family: var(--display); font-size: 11px; color: var(--silver-hi); background: var(--navy); }
+      .gb-card .who { color: var(--silver-hi); font-weight: 600; font-size: 14px; }
       .gb-card .rel { color: var(--muted); font-size: 12.5px; }
-      .gb-wall.is-static { -webkit-mask-image: none; mask-image: none; }
-      .gb-wall.is-static .gb-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; max-width: 980px; margin: 0 auto; padding: 0 22px; }
-      @media (max-width: 560px) { .gb-row { grid-template-columns: 1fr; } .gb-card { width: 250px; } .gb-foot { flex-direction: column-reverse; align-items: center; text-align: center; } }
-      @media (prefers-reduced-motion: reduce) { .gb-track { animation: none; } .gb-wall { overflow-x: auto; } }
+      .gb-nav { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 20px; }
+      .gb-arr { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: #11224099; color: var(--silver-hi); font-size: 20px; line-height: 1; cursor: pointer; display: grid; place-items: center; }
+      .gb-arr:hover, .gb-arr:focus-visible { border-color: var(--silver); }
+      .gb-dots { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; max-width: 60vw; }
+      .gb-dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 9px; background: #C9D1DC44; cursor: pointer; transition: width .3s ease, background .3s ease; }
+      .gb-dots button[aria-current="true"] { width: 22px; background: var(--silver-hi); }
+      .gb-wall.is-single .gb-nav { display: none; }
+      @media (max-width: 560px) { .gb-row { grid-template-columns: 1fr; } .gb-wall { padding: 0 16px; } .gb-card { padding: 26px 22px 20px; } .gb-card p { font-size: 18px; } .gb-foot { flex-direction: column-reverse; align-items: center; text-align: center; } }
+      @media (prefers-reduced-motion: reduce) { .gb-stage, .gb-card, .gb-dots button { transition: none; } }
 
       /* Pinned menu bar */
       html { scroll-behavior: smooth; }
@@ -488,45 +494,65 @@
         const status = document.getElementById('gb-status');
         const btn = document.getElementById('gb-submit');
         const opened = Date.now();
-        const card = (n) => {
+        const initials = (name) => name.replace(/[“”"'(].*?[“”"')]/g, ' ').split(/\s+/).filter((w) => /^[A-Za-z]/.test(w) && !/^(Sr|Jr|II|III|Dr)\.?,?$/.test(w)).map((w) => w[0].toUpperCase()).filter((_, i, a) => i === 0 || i === a.length - 1).join('');
+        const card = (n, i, total) => {
           const f = document.createElement('figure'); f.className = 'gb-card';
+          f.setAttribute('role', 'group'); f.setAttribute('aria-roledescription', 'slide'); f.setAttribute('aria-label', `${i + 1} of ${total}`);
           const q = document.createElement('span'); q.className = 'qm'; q.textContent = '“'; q.setAttribute('aria-hidden', 'true');
-          const p = document.createElement('p'); p.textContent = n.message;
+          const p = document.createElement('p'); p.textContent = n.message.trim();
           f.append(q, p);
           // Names only arrive when Jack has switched them on.
           if (n.name) {
             const c = document.createElement('figcaption');
-            const w = document.createElement('div'); w.className = 'who'; w.textContent = n.name;
-            c.append(w);
-            if (n.relation) { const r = document.createElement('div'); r.className = 'rel'; r.textContent = n.relation; c.append(r); }
-            f.append(c);
+            const av = document.createElement('span'); av.className = 'av'; av.setAttribute('aria-hidden', 'true'); av.textContent = initials(n.name);
+            const t = document.createElement('div');
+            const w = document.createElement('div'); w.className = 'who'; w.textContent = n.name; t.append(w);
+            if (n.relation) { const r = document.createElement('div'); r.className = 'rel'; r.textContent = n.relation; t.append(r); }
+            c.append(av, t); f.append(c);
           }
           return f;
         };
-        const track = (notes, copies) => {
-          const t = document.createElement('div'); t.className = 'gb-track';
-          for (let i = 0; i < copies; i++) notes.forEach((n) => { const el = card(n); if (i) el.setAttribute('aria-hidden', 'true'); t.append(el); });
-          return t;
+        const spotlight = (notes) => {
+          const stage = document.createElement('div'); stage.className = 'gb-stage';
+          stage.setAttribute('aria-roledescription', 'carousel'); stage.setAttribute('aria-label', 'Notes from visitors');
+          const slides = notes.map((n, i) => card(n, i, notes.length)); stage.append(...slides);
+          const navEl = document.createElement('div'); navEl.className = 'gb-nav';
+          const mk = (label, txt) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'gb-arr'; b.setAttribute('aria-label', label); b.textContent = txt; return b; };
+          const prev = mk('Previous note', '‹'), next = mk('Next note', '›');
+          const dots = document.createElement('div'); dots.className = 'gb-dots';
+          const dotEls = notes.map((_, i) => { const d = document.createElement('button'); d.type = 'button'; d.setAttribute('aria-label', `Show note ${i + 1}`); d.addEventListener('click', () => { go(i); stop(); }); dots.append(d); return d; });
+          navEl.append(prev, dots, next);
+          let cur = 0, timer = null;
+          const fit = () => { stage.style.height = slides[cur].offsetHeight + 'px'; };
+          const go = (i) => {
+            slides[cur].classList.remove('is-on'); slides[cur].setAttribute('aria-hidden', 'true'); dotEls[cur].removeAttribute('aria-current');
+            cur = (i + notes.length) % notes.length;
+            slides[cur].classList.add('is-on'); slides[cur].removeAttribute('aria-hidden'); dotEls[cur].setAttribute('aria-current', 'true');
+            fit();
+          };
+          const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          const start = () => { if (still || notes.length < 2) return; clearInterval(timer); timer = setInterval(() => go(cur + 1), 7000); };
+          const stop = () => { clearInterval(timer); timer = null; };
+          prev.addEventListener('click', () => { go(cur - 1); stop(); });
+          next.addEventListener('click', () => { go(cur + 1); stop(); });
+          stage.addEventListener('mouseenter', stop); stage.addEventListener('mouseleave', start);
+          stage.addEventListener('focusin', stop);
+          let x0 = null;
+          stage.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; stop(); }, { passive: true });
+          stage.addEventListener('touchend', (e) => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1)); x0 = null; }, { passive: true });
+          window.addEventListener('resize', fit);
+          slides.forEach((s) => s.setAttribute('aria-hidden', 'true'));
+          wall.append(stage, navEl); wall.classList.toggle('is-single', notes.length < 2);
+          return () => { go(0); start(); if (document.fonts) document.fonts.ready.then(fit); };
         };
         fetch('/api/guestbook.php', { headers: { Accept: 'application/json' } })
           .then((r) => (r.ok ? r.json() : { notes: [] }))
           .then(({ notes = [] }) => {
             if (!notes.length) return;
             wall.replaceChildren();
-            if (notes.length < 4) {
-              wall.classList.add('is-static'); wall.append(track(notes, 1));
-            } else {
-              const rows = notes.length >= 8 ? [notes.filter((_, i) => i % 2 === 0), notes.filter((_, i) => i % 2 === 1)] : [notes];
-              rows.forEach((row) => {
-                // Repeat the row until one half is wider than the screen, then double it for a seamless loop.
-                const reps = Math.max(1, Math.ceil((window.innerWidth + 320) / (row.length * 318)));
-                const half = Array.from({ length: reps }, () => row).flat();
-                const t = track(half, 2);
-                t.style.setProperty('--gb-dur', `${Math.round(half.length * 9)}s`);
-                wall.append(t);
-              });
-            }
+            const begin = spotlight(notes);
             wall.hidden = false;
+            begin();
           })
           .catch(() => {});
         gbForm.addEventListener('submit', async (e) => {
